@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<candyConfiguration>
+    <!-- 引入配置文件 -->
+    <properties resource="candy.properties"/>
+
+    <!--jdbc配置-->
+    <jdbcConnection>
+        <driver>
+            <driverClass>${jdbc_driver}</driverClass>
+            <classPath>${classPath}</classPath>
+        </driver>
+        <connectionURL>${jdbc_url}</connectionURL>
+        <userId>${jdbc_user}</userId>
+        <password>${jdbc_password}</password>
+    </jdbcConnection>
+
+    <!--自动生成的*Mapper.java存放路径 -->
+
+    <javaClientGenerator type="XMLMAPPER"
+
+                         targetPackage="org.cj.dao.auto" targetProject="src/main/java">
+
+        <property name="enableSubPackages" value="true"/>
+
+    </javaClientGenerator>
+
+    <apiContext id="infoGuardian">
+
+        <!-- 类型转换 -->
+        <javaTypeResolver>
+            <property javaType="int" apiType="number"/>
+        </javaTypeResolver>
+
+    </apiContext>
+</candyConfiguration>
+
