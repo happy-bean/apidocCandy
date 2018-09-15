@@ -7,23 +7,23 @@
     <!--jdbc配置-->
     <jdbcConnection>
         <driver>
-            <driverClass>${jdbc_driver}</driverClass>
             <classPath>${classPath}</classPath>
+            <driverClass>${jdbc_driver}</driverClass>
         </driver>
         <connectionURL>${jdbc_url}</connectionURL>
         <userId>${jdbc_user}</userId>
         <password>${jdbc_password}</password>
     </jdbcConnection>
 
-    <!--自动生成的*Mapper.java存放路径 -->
+    <db>
 
-    <javaClientGenerator type="XMLMAPPER"
+    </db>
 
-                         targetPackage="org.cj.dao.auto" targetProject="src/main/java">
-
-        <property name="enableSubPackages" value="true"/>
-
-    </javaClientGenerator>
+    <javaSource projectCodePath="org.cj.dao.auto">
+        <controllerSource>
+            <package>/opt/</package>
+        </controllerSource>
+    </javaSource>
 
     <apiContext id="infoGuardian">
 
@@ -33,5 +33,6 @@
         </javaTypeResolver>
 
     </apiContext>
+
 </candyConfiguration>
 
