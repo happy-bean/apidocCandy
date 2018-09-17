@@ -1,9 +1,8 @@
 package org.happbean.candy.apidoc.factory.annotation;
 
-import org.happbean.candy.apidoc.factory.enums.HttpMethod;
-
-import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
@@ -11,19 +10,9 @@ import java.lang.annotation.Target;
  * @date 2018-09-14
  * @description
  **/
-@Target({ElementType.METHOD, ElementType.TYPE})
-@Documented
+@Target({ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
 public @interface Api {
 
-    String name() default "";
-
-    String[] path() default {};
-
-    HttpMethod[] method() default {};
-
-    String[] params() default {};
-
-    String[] headers() default {};
-
-    String desc() default "";
+    String value() default "";
 }

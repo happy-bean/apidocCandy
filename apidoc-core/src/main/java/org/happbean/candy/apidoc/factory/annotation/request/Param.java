@@ -1,8 +1,6 @@
 package org.happbean.candy.apidoc.factory.annotation.request;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * @author wgt
@@ -10,7 +8,7 @@ import java.lang.annotation.Target;
  * @description
  **/
 @Target({ElementType.TYPE, ElementType.FIELD, ElementType.PARAMETER})
-@Documented
+@Retention(RetentionPolicy.RUNTIME)
 public @interface Param {
 
     String name() default "";
