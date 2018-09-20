@@ -8,14 +8,32 @@ package org.happbean.candy.apidoc.code;
  **/
 public class ReflectUtil {
 
-    public static Class<?> getClassForName(String className) {
+    public static Class<?> getClassForName(final String className) {
 
         Class<?> clazz = null;
+
         try {
             clazz = Class.forName(className);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return clazz;
+    }
+
+    public static Object getNewInstance(Class clazz) {
+
+        if (clazz == null) {
+            return null;
+        }
+
+        try {
+            return clazz.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }
