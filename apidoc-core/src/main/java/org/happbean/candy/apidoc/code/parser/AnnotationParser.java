@@ -22,24 +22,40 @@ public class AnnotationParser {
         return annotation == null ? false : true;
     }
 
+    public static boolean checkMethodAnnotation(Method method) {
+
+        Annotation[] annotations = method.getAnnotations();
+
+        annotations = Arrays.stream(annotations)
+                .filter(annotation -> checkAnnotation(annotation)).toArray(Annotation[]::new);
+
+        return annotations.length == 0 ? false : true;
+    }
+
     public static boolean checkAnnotation(Annotation annotation) {
 
         List<Class> annotations = AnnotationFactory.getAnnotations();
 
-        return (annotation == null || !annotations.contains(annotation.annotationType()));
+        return (annotation != null && annotations.contains(annotation.annotationType()));
     }
 
     public static final Annotation[] getClassAnnotations(Class clazz) {
 
-        Annotation[] annotations = clazz.getDeclaredAnnotations();
+        Annotation[] annotations = clazz.getAnnotations();
 
         if (annotations == null) {
             return null;
         }
+
         annotations = Arrays.stream(annotations)
                 .filter(annotation -> checkAnnotation(annotation)).toArray(Annotation[]::new);
 
         return annotations;
+    }
+
+    public static final Annotation[] getApiClassAnnotations(Class clazz) {
+
+        return getClassAnnotations(clazz);
     }
 
     public static final Map<String, Annotation[]> getFieldAnnotations(Class clazz) {
