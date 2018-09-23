@@ -12,10 +12,15 @@ import java.util.Map;
  **/
 public class JavaClassParser {
 
+    private Class clazz;
 
-    public Map<String, Class[]> getParamsClass(Class clazz) {
+    public JavaClassParser(Class clazz) {
+        this.clazz = clazz;
+    }
 
-        Method[] methods = clazz.getMethods();
+    public Map<String, Class[]> getParamsClass() {
+
+        Method[] methods = this.clazz.getMethods();
 
         Map<String, Class[]> map = new HashMap<>();
 
@@ -27,17 +32,24 @@ public class JavaClassParser {
         return map;
     }
 
-    public Map<String, Class> getReponseClass(Class clazz) {
+    public Map<String, Class> getReponseClass() {
 
-        Method[] methods = clazz.getMethods();
+        Method[] methods = this.clazz.getMethods();
 
         Map<String, Class> map = new HashMap<>();
 
         Arrays.stream(methods).forEach(method -> {
-            Class<?> returnType = method.getReturnType();
-            map.put(method.toGenericString(), returnType);
+
+            if (AnnotationParser.checkMethodAnnotation(method)) {
+                Class<?> returnType = method.getReturnType();
+                map.put(method.toGenericString(), returnType);
+            }
         });
 
         return map;
+    }
+
+    public static boolean isJavaClass(Class<?> clazz) {
+        return clazz != null && clazz.getClassLoader() == null;
     }
 }
