@@ -7,7 +7,7 @@ package org.happbean.candy.apidoc.code.parser;
  **/
 public class AnnoValueParser {
 
-    private Object annotation;
+    private final Object annotation;
 
     public AnnoValueParser(Object annotation) {
         this.annotation = annotation;
@@ -24,7 +24,7 @@ public class AnnoValueParser {
 
     }
 
-    private static void parseValue(Parser parser) {
+    private void parseValue(Parser parser) {
 
         parser.parseValue();
     }
