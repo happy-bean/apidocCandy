@@ -15,9 +15,18 @@
         <password>${jdbc_password}</password>
     </jdbcConnection>
 
-    <db>
-
-    </db>
+    <tables>
+        <table tableName="api">
+            <column value="id" property="id"/>
+            <column value="name" property="name"/>
+            <column value="path" property="path"/>
+            <column value="method" property="method"/>
+            <column value="headers" property="headers"/>
+            <column value="desc" property="desc"/>
+            <column value="param" property="param"/>
+            <column value="result" property="result"/>
+        </table>
+    </tables>
 
     <javaSource projectCodePath="org.cj.dao.auto">
         <controllerSource>
