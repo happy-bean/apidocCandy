@@ -9,6 +9,7 @@ import org.happbean.candy.apidoc.factory.annotation.response.Result;
  * @description
  **/
 @Data
+@Result
 public class User {
 
     @Result(name = "num", value = "apidoccandy.@email.com", desc = "account number")

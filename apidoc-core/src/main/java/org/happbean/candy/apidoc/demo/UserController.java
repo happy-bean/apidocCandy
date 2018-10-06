@@ -12,7 +12,7 @@ import javax.annotation.Resource;
  * @date 2018-09-15
  * @description
  **/
-@Api
+@Api(value = "UserController")
 public class UserController {
 
     @Action(path = "/user-info", method = {HttpMethod.GET}, desc = "get user info by user id")
