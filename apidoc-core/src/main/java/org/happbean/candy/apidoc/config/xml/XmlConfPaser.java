@@ -6,8 +6,6 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
-import java.io.IOException;
-import java.util.List;
 
 /**
  * @author wgt
@@ -28,8 +26,7 @@ public class XmlConfPaser {
         return object;
     }
 
-    public static CandyConfiguration pase() {
-        String xmlPath = "/Users/wgt/IdeaProjects/java/apidocCandy/apidoc-core/src/test/java/conf/candyconf.xml";
+    public static CandyConfiguration pase(String xmlPath) {
         Object object = xmlToBean(xmlPath, CandyConfiguration.class);
         CandyConfiguration configuration = (CandyConfiguration) object;
         return configuration;
