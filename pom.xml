@@ -6,10 +6,12 @@
 
     <groupId>org.happybeen</groupId>
     <artifactId>org.happybeen</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
     <modules>
         <module>apidoc-core</module>
+        <module>apidoc-demo</module>
     </modules>
 
     <properties>

@@ -29,9 +29,7 @@
     </tables>
 
     <javaSource projectCodePath="org.cj.dao.auto">
-        <controllerSource>
-            <package>/opt/</package>
-        </controllerSource>
+        <apiSource package="/opt/"/>
     </javaSource>
 
     <apiContext id="infoGuardian">
