@@ -12,7 +12,7 @@ import java.io.File;
  * @date 2018-09-25
  * @description
  **/
-public class XmlConfPaser {
+public class XmlConfFormatter {
 
     public static Object xmlToBean(String xmlPath, Class<?> load) {
         Object object = null;

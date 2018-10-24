@@ -8,11 +8,11 @@
     <jdbcConnection>
         <driver>
             <classPath>${classPath}</classPath>
-            <driverClass>${jdbc_driver}</driverClass>
+            <driverClass>${jdbcDriver}</driverClass>
         </driver>
-        <connectionURL>${jdbc_url}</connectionURL>
-        <userId>${jdbc_user}</userId>
-        <password>${jdbc_password}</password>
+        <connectionURL>${jdbcUrl}</connectionURL>
+        <userId>${jdbcUser}</userId>
+        <password>${jdbcPassword}</password>
     </jdbcConnection>
 
     <tables>
@@ -23,12 +23,27 @@
             <column value="method" property="method"/>
             <column value="headers" property="headers"/>
             <column value="desc" property="desc"/>
-            <column value="param" property="param"/>
-            <column value="result" property="result"/>
+        </table>
+        <table tableName="param">
+            <column value="id" property="id"/>
+            <column value="apiId" property="api_id"/>
+            <column value="name" property="name"/>
+            <column value="value" property="value"/>
+            <column value="type" property="type"/>
+            <column value="required" property="required"/>
+            <column value="desc" property="desc"/>
+        </table>
+        <table tableName="result">
+            <column value="id" property="id"/>
+            <column value="apiId" property="api_id"/>
+            <column value="name" property="name"/>
+            <column value="type" property="type"/>
+            <column value="value" property="value"/>
+            <column value="desc" property="desc"/>
         </table>
     </tables>
 
-    <javaSource projectCodePath="org.cj.dao.auto">
+    <javaSource projectCodePath="org.happbean.candy.apidoc">
         <apiSource package="/opt/"/>
     </javaSource>
 

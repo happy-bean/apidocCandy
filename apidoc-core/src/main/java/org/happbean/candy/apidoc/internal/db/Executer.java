@@ -1,6 +1,7 @@
 package org.happbean.candy.apidoc.internal.db;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  * @author wgt
@@ -15,4 +16,7 @@ public abstract class Executer {
         this.connection = connection;
     }
 
+    public void closeConnection() throws SQLException {
+        this.connection.close();
+    }
 }

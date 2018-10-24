@@ -25,6 +25,7 @@ public class SqlExecuter extends Executer {
 
         PreparedStatement preparedStatement = this.connection.prepareStatement(sql);
         ResultSet resultSet = preparedStatement.executeQuery();
+        preparedStatement.close();
         return resultSet;
     }
 
@@ -32,6 +33,7 @@ public class SqlExecuter extends Executer {
 
         PreparedStatement preparedStatement = this.connection.prepareStatement(sql);
         int num = preparedStatement.executeUpdate();
+        preparedStatement.close();
         return num;
     }
 
