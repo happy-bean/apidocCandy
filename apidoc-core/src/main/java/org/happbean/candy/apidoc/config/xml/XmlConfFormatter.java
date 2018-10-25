@@ -15,8 +15,10 @@ import java.io.File;
 public class XmlConfFormatter {
 
     public static Object xmlToBean(String xmlPath, Class<?> load) {
+
         Object object = null;
         try {
+
             JAXBContext context = JAXBContext.newInstance(load);
             Unmarshaller unmarshaller = context.createUnmarshaller();
             object = unmarshaller.unmarshal(new File(xmlPath));
@@ -26,9 +28,11 @@ public class XmlConfFormatter {
         return object;
     }
 
-    public static CandyConfiguration pase(String xmlPath) {
+    public static CandyConfiguration parse(String xmlPath) {
+
         Object object = xmlToBean(xmlPath, CandyConfiguration.class);
         CandyConfiguration configuration = (CandyConfiguration) object;
+
         return configuration;
     }
 }

@@ -57,6 +57,5 @@ public class CodeParser {
                 annoValueParser.parseAnnoValue();
             });
         });
-
     }
 }

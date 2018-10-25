@@ -1,6 +1,6 @@
 package org.happbean.candy.apidoc.code.parser;
 
-import org.happbean.candy.apidoc.factory.annotation.AnnotationFactory;
+import org.happbean.candy.apidoc.factory.AnnotationFactory;
 import org.happbean.candy.apidoc.factory.annotation.Api;
 
 import java.lang.annotation.Annotation;

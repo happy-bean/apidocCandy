@@ -31,7 +31,9 @@ public class ApiParser {
 
     public static Parser getApiParser(Api api) {
 
-        Parser parser = () -> System.out.println(api.value());
+        Parser parser = () -> {
+            System.out.println(api.value());
+        };
 
         return parser;
     }
