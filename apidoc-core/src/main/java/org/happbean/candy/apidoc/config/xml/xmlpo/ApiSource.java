@@ -12,11 +12,11 @@ public class ApiSource {
     private String packaga;
 
     @XmlAttribute(name = "package")
-    public String getPackaga() {
+    public String getPackage() {
         return packaga;
     }
 
-    public void setPackaga(String packaga) {
+    public void setPackage(String packaga) {
         this.packaga = packaga;
     }
 }

@@ -1,4 +1,4 @@
-package org.happbean.candy.apidoc.factory.annotation;
+package org.happbean.candy.apidoc.factory;
 
 import org.happbean.candy.apidoc.factory.enums.AnnotationEnums;
 
@@ -18,21 +18,25 @@ public class AnnotationFactory {
     public static List<Class> getAnnotations() {
 
         if (annotations == null) {
+
             synchronized (AnnotationFactory.class) {
                 if (annotations == null) {
                     annotations = convertAnnotationEnums();
                 }
             }
         }
+
         return annotations;
     }
 
     private static List<Class> convertAnnotationEnums() {
 
         AnnotationEnums[] annotationEnums = AnnotationEnums.values();
+
         List<Class> annotations
                 = Arrays.stream(annotationEnums)
                 .map(annotationEnum -> annotationEnum.getClazz()).collect(Collectors.toList());
+
         return annotations;
     }
 }

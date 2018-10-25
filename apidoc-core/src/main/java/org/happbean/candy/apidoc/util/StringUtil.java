@@ -96,6 +96,30 @@ public class StringUtil {
     }
 
     /**
+     * 是否以指定字符串结尾<br>
+     * 如果给定的字符串和开头字符串都为null则返回true，否则任意一个值为null返回false
+     *
+     * @param str          被监测字符串
+     * @param suffix       结尾字符串
+     * @param isIgnoreCase 是否忽略大小写
+     * @return 是否以指定字符串结尾
+     */
+    public static boolean endWith(CharSequence str, CharSequence suffix, boolean isIgnoreCase) {
+        if (null == str || null == suffix) {
+            if (null == str && null == suffix) {
+                return true;
+            }
+            return false;
+        }
+
+        if (isIgnoreCase) {
+            return str.toString().toLowerCase().endsWith(suffix.toString().toLowerCase());
+        } else {
+            return str.toString().endsWith(suffix.toString());
+        }
+    }
+
+    /**
      * 去掉字符包装，如果未被包装则返回原字符串
      *
      * @param str    字符串
@@ -104,11 +128,9 @@ public class StringUtil {
      * @return 去掉包装字符的字符串
      * @since 4.0.1
      */
-    public static String unWrap(CharSequence str, char prefix, char suffix) {
-        if (str.charAt(0) == prefix && str.charAt(str.length() - 1) == suffix) {
-            return sub(str, 1, str.length() - 1);
-        }
-        return str.toString();
+    public static String unWrap(CharSequence str, CharSequence prefix, CharSequence suffix) {
+
+        return sub(str, prefix.length(), str.length() - suffix.length());
     }
 
     /**
@@ -119,12 +141,12 @@ public class StringUtil {
      * @param suffixChar 后缀
      * @return 是否被包装
      */
-    public static boolean isWrap(CharSequence str, char prefixChar, char suffixChar) {
+    public static boolean isWrap(CharSequence str, CharSequence prefixChar, CharSequence suffixChar) {
         if (null == str) {
             return false;
         }
 
-        return str.charAt(0) == prefixChar && str.charAt(str.length() - 1) == suffixChar;
+        return startWith(str, prefixChar, false) && endWith(str, suffixChar, false);
     }
 
     /**

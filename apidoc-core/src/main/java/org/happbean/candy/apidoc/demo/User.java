@@ -13,7 +13,7 @@ import org.happbean.candy.apidoc.factory.annotation.response.Result;
 public class User {
 
     @Result(name = "num", value = "apidoccandy.@email.com", desc = "account number")
-    private int num;
+    private String num;
 
     @Result(name = "pass", value = "apidoccandy", desc = "password")
     private String pass;

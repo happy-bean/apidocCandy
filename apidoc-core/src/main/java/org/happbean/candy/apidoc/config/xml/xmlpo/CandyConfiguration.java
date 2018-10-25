@@ -19,6 +19,8 @@ public class CandyConfiguration {
 
     private Tables tables;
 
+    private JavaTypeResolver javaTypeResolver;
+
     @XmlElement(name = "properties")
     public Properties getProperties() {
         return properties;
@@ -53,5 +55,14 @@ public class CandyConfiguration {
 
     public void setTables(Tables tables) {
         this.tables = tables;
+    }
+
+    public JavaTypeResolver getJavaTypeResolver() {
+        return javaTypeResolver;
+    }
+
+    @XmlElement(name = "javaTypeResolver")
+    public void setJavaTypeResolver(JavaTypeResolver javaTypeResolver) {
+        this.javaTypeResolver = javaTypeResolver;
     }
 }

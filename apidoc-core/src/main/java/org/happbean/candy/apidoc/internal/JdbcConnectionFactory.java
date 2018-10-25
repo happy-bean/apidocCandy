@@ -15,7 +15,7 @@ import java.util.Properties;
  * @date 2018-10-23
  * @description
  **/
-public class JDBCConnectionFactory {
+public class JdbcConnectionFactory {
 
     private String userId;
 
@@ -25,15 +25,18 @@ public class JDBCConnectionFactory {
 
     private String driverClass;
 
-    public JDBCConnectionFactory(JdbcConnection config) {
+    public JdbcConnectionFactory(JdbcConnection config) {
+
         this.userId = config.getUserId();
         this.password = config.getPassword();
         this.connectionURL = config.getConnectionURL();
-        this.driverClass = config.getDriver().getDriverClass();
+        this.driverClass = config.getDriverClass();
     }
 
     public Connection getConnection() throws SQLException {
+
         Properties props = new Properties();
+
         if (StringUtil.isNotEmpty(this.userId)) {
             props.setProperty("user", this.userId);
         }
@@ -44,6 +47,7 @@ public class JDBCConnectionFactory {
 
         Driver driver = this.getDriver();
         Connection conn = driver.connect(this.connectionURL, props);
+
         if (conn == null) {
             //throw new SQLException(Messages.getString("RuntimeError.7"));
             throw new SQLException("");
@@ -53,7 +57,9 @@ public class JDBCConnectionFactory {
     }
 
     private Driver getDriver() {
+
         try {
+
             Class<?> clazz = ObjectFactory.externalClassForName(this.driverClass);
             Driver driver = (Driver) clazz.newInstance();
             return driver;

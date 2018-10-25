@@ -32,8 +32,7 @@ public class ObjectFactory {
         return internalClassForName(type);
     }
 
-    public static Class<?> internalClassForName(String type)
-            throws ClassNotFoundException {
+    public static Class<?> internalClassForName(String type) throws ClassNotFoundException {
         Class<?> clazz = null;
 
         try {

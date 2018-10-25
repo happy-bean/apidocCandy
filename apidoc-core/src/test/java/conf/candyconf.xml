@@ -1,60 +1,63 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <candyConfiguration>
+
+    <javaSource projectCodePath="org.happbean.candy.apidoc">
+        <apiSource package="/opt/"/>
+    </javaSource>
+
     <!-- 引入配置文件 -->
     <properties resource="candy.properties"/>
 
     <!--jdbc配置-->
     <jdbcConnection>
-        <driver>
-            <classPath>${classPath}</classPath>
-            <driverClass>${jdbcDriver}</driverClass>
-        </driver>
+        <driverClass>${jdbcDriver}</driverClass>
+        <classPath>${classPath}</classPath>
         <connectionURL>${jdbcUrl}</connectionURL>
         <userId>${jdbcUser}</userId>
         <password>${jdbcPassword}</password>
     </jdbcConnection>
 
     <tables>
-        <table tableName="api">
+        <table tableName="action" property="action">
             <column value="id" property="id"/>
             <column value="name" property="name"/>
             <column value="path" property="path"/>
             <column value="method" property="method"/>
-            <column value="headers" property="headers"/>
             <column value="desc" property="desc"/>
         </table>
-        <table tableName="param">
+        <table tableName="param" property="param">
             <column value="id" property="id"/>
-            <column value="apiId" property="api_id"/>
+            <column value="action_id" property="actionId"/>
             <column value="name" property="name"/>
-            <column value="value" property="value"/>
             <column value="type" property="type"/>
             <column value="required" property="required"/>
             <column value="desc" property="desc"/>
+            <column value="last_id" property="lastId"/>
         </table>
-        <table tableName="result">
+        <table tableName="header" property="header">
             <column value="id" property="id"/>
-            <column value="apiId" property="api_id"/>
+            <column value="action_id" property="actionId"/>
             <column value="name" property="name"/>
-            <column value="type" property="type"/>
-            <column value="value" property="value"/>
+            <column value="required" property="required"/>
             <column value="desc" property="desc"/>
+        </table>
+        <table tableName="result" property="result">
+            <column value="id" property="id"/>
+            <column value="action_id" property="actionId"/>
+            <column value="name" property="name"/>
+            <column value="value" property="value"/>
+            <column value="type" property="type"/>
+            <column value="desc" property="desc"/>
+            <column value="last_id" property="lastId"/>
         </table>
     </tables>
 
-    <javaSource projectCodePath="org.happbean.candy.apidoc">
-        <apiSource package="/opt/"/>
-    </javaSource>
-
-    <apiContext id="infoGuardian">
-
-        <!-- 类型转换 -->
-        <javaTypeResolver>
-            <property javaType="int" apiType="number"/>
-        </javaTypeResolver>
-
-    </apiContext>
+    <javaTypeResolver>
+        <property javaType="int" apiType="number"/>
+        <property javaType="long" apiType="number"/>
+        <property javaType="double" apiType="number"/>
+    </javaTypeResolver>
 
 </candyConfiguration>
 

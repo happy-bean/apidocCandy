@@ -36,7 +36,9 @@ public class Test {
         tables.stream().forEach(table -> {
             System.out.println(table.getTableName());
             List<Column> columns = table.getColumns();
-            columns.stream().forEach(System.out::println);
+            columns.stream().forEach(column -> {
+                System.out.println("-"+column.getValue());
+            });
         });
         System.out.println(properties.getResource());
         System.out.println(connection.getConnectionURL());
