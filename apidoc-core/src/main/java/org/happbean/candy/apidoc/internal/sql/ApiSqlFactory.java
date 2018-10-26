@@ -1,6 +1,6 @@
 package org.happbean.candy.apidoc.internal.sql;
 
-import org.happbean.candy.apidoc.config.xml.xmlpo.Table;
+import org.happbean.candy.apidoc.config.xml.elements.Table;
 import org.happbean.candy.apidoc.exception.SqlBuildException;
 import org.happbean.candy.apidoc.internal.sql.sqlpo.Value;
 import org.happbean.candy.apidoc.util.CollectionUtil;

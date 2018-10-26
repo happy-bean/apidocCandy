@@ -1,10 +1,10 @@
 package org.happbean.candy.apidoc.api;
 
 import org.happbean.candy.apidoc.config.xml.XmlConfFormatter;
-import org.happbean.candy.apidoc.config.xml.xmlpo.CandyConfiguration;
+import org.happbean.candy.apidoc.config.xml.elements.CandyConfiguration;
+import org.happbean.candy.apidoc.internal.system.DbSystem;
+import org.happbean.candy.apidoc.internal.system.JavaTypeSystem;
 import org.happbean.candy.apidoc.internal.system.JdbcSystem;
-
-import java.util.ResourceBundle;
 
 /**
  * @author wgt
@@ -25,11 +25,12 @@ public class GeneratedXmlConf extends GeneratedConf {
     }
 
     @Override
-    void generated() {
+    public void generated() {
 
         CandyConfiguration configuration = XmlConfFormatter.parse(this.xmlPath);
-        ResourceBundle bundle = ResourceBundle.getBundle(configuration.getProperties().getResource());
 
-        JdbcSystem.init(configuration.getJdbcConnection(), bundle);
+        JdbcSystem.init(configuration);
+        DbSystem.init(configuration);
+        JavaTypeSystem.init(configuration);
     }
 }

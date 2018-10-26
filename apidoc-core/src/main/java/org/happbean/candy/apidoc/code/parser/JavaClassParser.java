@@ -20,19 +20,27 @@ public class JavaClassParser {
 
     public Map<String, Class[]> getParamsClass() {
 
+        if (isJavaClass(this.clazz) == false) {
+            return null;
+        }
+
         Method[] methods = this.clazz.getMethods();
 
         Map<String, Class[]> map = new HashMap<>();
 
         Arrays.stream(methods).forEach(method -> {
-            Class[] paramTypes = method.getParameterTypes();
-            map.put(method.toGenericString(), paramTypes);
+                Class[] paramTypes = method.getParameterTypes();
+                map.put(method.toGenericString(), paramTypes);
         });
 
         return map;
     }
 
     public Map<String, Class> getReponseClass() {
+
+        if (isJavaClass(this.clazz) == false) {
+            return null;
+        }
 
         Method[] methods = this.clazz.getMethods();
 
@@ -50,6 +58,6 @@ public class JavaClassParser {
     }
 
     public static boolean isJavaClass(Class<?> clazz) {
-        return clazz != null && clazz.getClassLoader() == null;
+        return clazz != null && clazz.getClassLoader() != null;
     }
 }

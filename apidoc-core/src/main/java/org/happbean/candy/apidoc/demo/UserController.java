@@ -14,8 +14,7 @@ import org.happbean.candy.apidoc.factory.enums.HttpMethod;
 @Api(value = "UserController")
 public class UserController {
 
-    @Header(name = "key",desc = "key")
-    @Action(path = "/user-info", method = {HttpMethod.GET}, desc = "get user info by user id")
+    @Action(name = "user info", path = "/user-info", method = {HttpMethod.GET}, desc = "get user info by user id", headers = {@Header(name = "key", desc = "key")})
     public User getUserInfo(@Param(name = "user_id", required = true, desc = "user id") int userId) {
         //...
         return null;

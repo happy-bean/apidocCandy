@@ -18,11 +18,11 @@ public @interface Action {
 
     String name() default "";
 
-    String[] path() default {};
+    String path() default "";
 
     HttpMethod[] method() default {};
 
-    String[] headers() default {};
+    Header[] headers() default {};
 
     String desc() default "";
 }

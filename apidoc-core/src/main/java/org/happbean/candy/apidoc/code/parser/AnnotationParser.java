@@ -2,6 +2,7 @@ package org.happbean.candy.apidoc.code.parser;
 
 import org.happbean.candy.apidoc.factory.AnnotationFactory;
 import org.happbean.candy.apidoc.factory.annotation.Api;
+import org.happbean.candy.apidoc.util.CollectionUtil;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -14,13 +15,6 @@ import java.util.*;
  * @description
  **/
 public class AnnotationParser {
-
-    public static boolean isApiClass(Class clazz) {
-
-        Annotation annotation = clazz.getAnnotation(Api.class);
-
-        return annotation == null ? false : true;
-    }
 
     public static boolean checkMethodAnnotation(Method method) {
 
@@ -43,7 +37,7 @@ public class AnnotationParser {
 
         Annotation[] annotations = clazz.getAnnotations();
 
-        if (annotations == null) {
+        if (CollectionUtil.isEmpty(Arrays.asList(annotations))) {
             return null;
         }
 
@@ -62,7 +56,7 @@ public class AnnotationParser {
 
         Field[] fields = clazz.getDeclaredFields();
 
-        if (fields == null) {
+        if (CollectionUtil.isEmpty(Arrays.asList(fields))) {
             return null;
         }
 
@@ -92,6 +86,9 @@ public class AnnotationParser {
         if (methods == null) {
             return null;
         }
+
+        methods = Arrays.stream(methods)
+                .filter(method -> ApiClassChecker.isApiMethod(method)).toArray(Method[]::new);
 
         Map<String, Annotation[]> annotationMap = new HashMap<>();
 

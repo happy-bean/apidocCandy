@@ -13,5 +13,5 @@ public abstract class GeneratedConf {
         this.projectPath = projectPath;
     }
 
-    abstract void generated();
+    abstract  void generated();
 }

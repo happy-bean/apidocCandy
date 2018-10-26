@@ -1,4 +1,4 @@
-package org.happbean.candy.apidoc.config.xml.xmlpo;
+package org.happbean.candy.apidoc.config.xml.elements;
 
 import javax.xml.bind.annotation.XmlAttribute;
 
@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlAttribute;
  * @date 2018-09-25
  * @description
  **/
-public class ApiSource {
+public class JavaSource {
 
     private String packaga;
 

@@ -1,4 +1,4 @@
-package org.happbean.candy.apidoc.config.xml.xmlpo;
+package org.happbean.candy.apidoc.config.xml.elements;
 
 import javax.xml.bind.annotation.XmlAttribute;
 

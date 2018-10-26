@@ -1,6 +1,9 @@
 package org.happbean.candy.apidoc.code;
 
 
+import org.happbean.candy.apidoc.code.parser.ApiClassChecker;
+import org.happbean.candy.apidoc.internal.factory.ObjectFactory;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
@@ -18,7 +21,7 @@ import java.util.List;
  **/
 public class PackageScanner {
 
-    public static List<Class<?>> getClasses(String packageName) {
+    public static List<Class<?>> getApiClasses(String packageName) {
 
         List<Class<?>> classes = new ArrayList<>();
         // 是否循环迭代
@@ -40,7 +43,7 @@ public class PackageScanner {
                     // 获取包的物理路径
                     String filePath = URLDecoder.decode(url.getFile(), "UTF-8");
                     // 以文件的方式扫描整个包下的文件 并添加到集合中
-                    findAndAddClassesInPackageByFile(packageName, filePath, recursive, classes);
+                    findApiClassesInPackageByFile(packageName, filePath, recursive, classes);
                 }
             }
         } catch (IOException e) {
@@ -50,7 +53,7 @@ public class PackageScanner {
         return classes;
     }
 
-    private static void findAndAddClassesInPackageByFile(String packageName, String packagePath, final boolean recursive, List<Class<?>> classes) {
+    private static void findApiClassesInPackageByFile(String packageName, String packagePath, final boolean recursive, List<Class<?>> classes) {
         // 获取此包的目录 建立一个File
         File dir = new File(packagePath);
         // 如果不存在或者 也不是目录就直接返回
@@ -66,13 +69,17 @@ public class PackageScanner {
         Arrays.stream(dirfiles).forEach(file -> {
             // 如果是目录 则继续扫描
             if (file.isDirectory()) {
-                findAndAddClassesInPackageByFile(packageName + "." + file.getName(), file.getAbsolutePath(), recursive, classes);
+                findApiClassesInPackageByFile(packageName + "." + file.getName(), file.getAbsolutePath(), recursive, classes);
             } else {
                 // 如果是java类文件 去掉后面的.java 只留下类名
                 String className = file.getName().substring(0, file.getName().length() - 6);
                 try {
                     // 添加到集合中去
-                    classes.add(Class.forName(packageName + '.' + className));
+                    Class<?> clazz = ObjectFactory.externalClassForName(packageName + '.' + className);
+                    //先判断是不是 api class
+                    if (ApiClassChecker.isApiClass(clazz)) {
+                        classes.add(clazz);
+                    }
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }

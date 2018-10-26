@@ -1,6 +1,6 @@
 package conf;
 
-import org.happbean.candy.apidoc.config.xml.xmlpo.*;
+import org.happbean.candy.apidoc.config.xml.elements.*;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;

@@ -1,7 +1,7 @@
 package org.happbean.candy.apidoc.internal;
 
 
-import org.happbean.candy.apidoc.config.xml.xmlpo.JdbcConnection;
+import org.happbean.candy.apidoc.config.xml.elements.JdbcConnection;
 import org.happbean.candy.apidoc.internal.factory.ObjectFactory;
 import org.happbean.candy.apidoc.util.StringUtil;
 

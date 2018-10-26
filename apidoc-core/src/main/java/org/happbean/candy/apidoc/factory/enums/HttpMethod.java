@@ -16,6 +16,6 @@ public enum HttpMethod {
     OPTIONS,
     TRACE;
 
-    private HttpMethod() {
+    HttpMethod() {
     }
 }

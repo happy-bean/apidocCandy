@@ -16,34 +16,34 @@ public class ObjectFactory {
         externalClassLoaders = new ArrayList<>();
     }
 
-    public static Class<?> externalClassForName(String type) throws ClassNotFoundException {
+    public static Class<?> externalClassForName(String className) throws ClassNotFoundException {
 
         Class<?> clazz;
 
         for (ClassLoader classLoader : externalClassLoaders) {
             try {
-                clazz = Class.forName(type, true, classLoader);
+                clazz = Class.forName(className, true, classLoader);
                 return clazz;
             } catch (Throwable e) {
                 // ignore - fail safe below
             }
         }
 
-        return internalClassForName(type);
+        return internalClassForName(className);
     }
 
-    public static Class<?> internalClassForName(String type) throws ClassNotFoundException {
+    public static Class<?> internalClassForName(String className) throws ClassNotFoundException {
         Class<?> clazz = null;
 
         try {
-            ClassLoader cl = Thread.currentThread().getContextClassLoader();
-            clazz = Class.forName(type, true, cl);
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            clazz = Class.forName(className, true, classLoader);
         } catch (Exception e) {
             // ignore - failsafe below
         }
 
         if (clazz == null) {
-            clazz = Class.forName(type, true, ObjectFactory.class.getClassLoader());
+            clazz = Class.forName(className, true, ObjectFactory.class.getClassLoader());
         }
 
         return clazz;
