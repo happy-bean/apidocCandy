@@ -1,6 +1,7 @@
 package org.happbean.candy.apidoc.internal.system;
 
-import org.happbean.candy.apidoc.config.xml.xmlpo.JdbcConnection;
+import org.happbean.candy.apidoc.config.xml.elements.CandyConfiguration;
+import org.happbean.candy.apidoc.config.xml.elements.JdbcConnection;
 import org.happbean.candy.apidoc.util.StringUtil;
 
 import java.util.ResourceBundle;
@@ -14,9 +15,9 @@ public class JdbcSystem {
 
     public static final JdbcConnection JDBC_CONNECTION = new JdbcConnection();
 
-    public static void init(JdbcConnection connection, ResourceBundle bundle) {
+    public static void init(CandyConfiguration configuration) {
 
-        converteVariables(connection, bundle);
+        converteVariables(configuration);
     }
 
     private static boolean useProperties(String value) {
@@ -24,7 +25,10 @@ public class JdbcSystem {
         return StringUtil.isNotBlank(value) && StringUtil.isWrap(value, "${", "}");
     }
 
-    private static void converteVariables(JdbcConnection connection, ResourceBundle bundle) {
+    private static void converteVariables(CandyConfiguration configuration) {
+
+        ResourceBundle bundle = ResourceBundle.getBundle(configuration.getProperties().getResource());
+        JdbcConnection connection = configuration.getJdbcConnection();
 
         if (useProperties(connection.getDriverClass())) {
             String key = StringUtil.unWrap(connection.getDriverClass(), "${", "}");
@@ -60,6 +64,5 @@ public class JdbcSystem {
         } else {
             JDBC_CONNECTION.setPassword(connection.getPassword());
         }
-
     }
 }
