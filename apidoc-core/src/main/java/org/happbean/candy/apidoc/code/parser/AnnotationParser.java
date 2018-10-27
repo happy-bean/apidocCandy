@@ -1,7 +1,6 @@
 package org.happbean.candy.apidoc.code.parser;
 
 import org.happbean.candy.apidoc.factory.AnnotationFactory;
-import org.happbean.candy.apidoc.factory.annotation.Api;
 import org.happbean.candy.apidoc.util.CollectionUtil;
 
 import java.lang.annotation.Annotation;
@@ -88,7 +87,7 @@ public class AnnotationParser {
         }
 
         methods = Arrays.stream(methods)
-                .filter(method -> ApiClassChecker.isApiMethod(method)).toArray(Method[]::new);
+                .filter(method -> ApiChecker.isApiMethod(method)).toArray(Method[]::new);
 
         Map<String, Annotation[]> annotationMap = new HashMap<>();
 

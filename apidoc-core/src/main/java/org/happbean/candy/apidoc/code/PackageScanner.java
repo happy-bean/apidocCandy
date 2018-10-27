@@ -1,7 +1,7 @@
 package org.happbean.candy.apidoc.code;
 
 
-import org.happbean.candy.apidoc.code.parser.ApiClassChecker;
+import org.happbean.candy.apidoc.code.parser.ApiChecker;
 import org.happbean.candy.apidoc.internal.factory.ObjectFactory;
 
 import java.io.File;
@@ -77,7 +77,7 @@ public class PackageScanner {
                     // 添加到集合中去
                     Class<?> clazz = ObjectFactory.externalClassForName(packageName + '.' + className);
                     //先判断是不是 api class
-                    if (ApiClassChecker.isApiClass(clazz)) {
+                    if (ApiChecker.isApiClass(clazz)) {
                         classes.add(clazz);
                     }
                 } catch (ClassNotFoundException e) {
