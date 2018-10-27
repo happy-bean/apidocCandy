@@ -1,9 +1,7 @@
 package org.happbean.candy.apidoc.code.parser;
 
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+
 
 /**
  * @author wgt
@@ -12,52 +10,34 @@ import java.util.Map;
  **/
 public class JavaClassParser {
 
-    private Class clazz;
+    public static Method[] getMethods(Class clazz) {
 
-    public JavaClassParser(Class clazz) {
-        this.clazz = clazz;
-    }
-
-    public Map<String, Class[]> getParamsClass() {
-
-        if (isJavaClass(this.clazz) == false) {
+        if (isJavaClass(clazz) == false) {
             return null;
         }
 
-        Method[] methods = this.clazz.getMethods();
-
-        Map<String, Class[]> map = new HashMap<>();
-
-        Arrays.stream(methods).forEach(method -> {
-                Class[] paramTypes = method.getParameterTypes();
-                map.put(method.toGenericString(), paramTypes);
-        });
-
-        return map;
+        return clazz.getMethods();
     }
 
-    public Map<String, Class> getReponseClass() {
+    public static Class[] getParamsClass(Method method) {
 
-        if (isJavaClass(this.clazz) == false) {
+        if (method == null) {
             return null;
         }
 
-        Method[] methods = this.clazz.getMethods();
-
-        Map<String, Class> map = new HashMap<>();
-
-        Arrays.stream(methods).forEach(method -> {
-
-            if (AnnotationParser.checkMethodAnnotation(method)) {
-                Class<?> returnType = method.getReturnType();
-                map.put(method.toGenericString(), returnType);
-            }
-        });
-
-        return map;
+        return method.getParameterTypes();
     }
 
-    public static boolean isJavaClass(Class<?> clazz) {
+    public static Class getReponseClass(Method method) {
+
+        if (method == null) {
+            return null;
+        }
+
+        return method.getReturnType();
+    }
+
+    private static boolean isJavaClass(Class<?> clazz) {
         return clazz != null && clazz.getClassLoader() != null;
     }
 }
