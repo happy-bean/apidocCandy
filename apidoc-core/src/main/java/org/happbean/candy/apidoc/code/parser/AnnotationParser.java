@@ -1,12 +1,8 @@
 package org.happbean.candy.apidoc.code.parser;
 
-import org.happbean.candy.apidoc.factory.AnnotationFactory;
-import org.happbean.candy.apidoc.util.CollectionUtil;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.*;
 
 /**
  * @author wgt
@@ -15,93 +11,62 @@ import java.util.*;
  **/
 public class AnnotationParser {
 
-    public static boolean checkMethodAnnotation(Method method) {
-
-        Annotation[] annotations = method.getAnnotations();
-
-        annotations = Arrays.stream(annotations)
-                .filter(annotation -> checkAnnotation(annotation)).toArray(Annotation[]::new);
-
-        return annotations.length == 0 ? false : true;
-    }
-
-    public static boolean checkAnnotation(Annotation annotation) {
-
-        List<Class> annotations = AnnotationFactory.getAnnotations();
-
-        return (annotation != null && annotations.contains(annotation.annotationType()));
-    }
-
     public static final Annotation[] getClassAnnotations(Class clazz) {
 
-        Annotation[] annotations = clazz.getAnnotations();
-
-        if (CollectionUtil.isEmpty(Arrays.asList(annotations))) {
+        if (clazz == null) {
             return null;
         }
 
-        annotations = Arrays.stream(annotations)
-                .filter(annotation -> checkAnnotation(annotation)).toArray(Annotation[]::new);
+        Annotation[] annotations = clazz.getAnnotations();
 
         return annotations;
     }
 
-    public static final Annotation[] getApiClassAnnotations(Class clazz) {
+    public static final Annotation[] getMethodAnnotations(Method method) {
 
-        return getClassAnnotations(clazz);
-    }
-
-    public static final Map<String, Annotation[]> getFieldAnnotations(Class clazz) {
-
-        Field[] fields = clazz.getDeclaredFields();
-
-        if (CollectionUtil.isEmpty(Arrays.asList(fields))) {
+        if (method == null) {
             return null;
         }
 
-        Map<String, Annotation[]> annotationMap = new HashMap<>();
+        Annotation[] annotations = method.getAnnotations();
 
-        Arrays.stream(fields).forEach(field -> {
-
-            if (!field.isAccessible()) {
-                field.setAccessible(true);
-            }
-
-            Annotation[] annotations = field.getAnnotations();
-
-            annotations = Arrays.stream(annotations)
-                    .filter(annotation -> checkAnnotation(annotation)).toArray(Annotation[]::new);
-
-            annotationMap.put(field.getName(), annotations);
-        });
-
-        return annotationMap;
+        return annotations;
     }
 
-    public static final Map<String, Annotation[]> getMethodAnnotations(Class clazz) {
+    private static final Annotation[] getFieldAnnotations(Field field) {
 
-        Method[] methods = clazz.getMethods();
-
-        if (methods == null) {
+        if (field == null) {
             return null;
         }
 
-        methods = Arrays.stream(methods)
-                .filter(method -> ApiChecker.isApiMethod(method)).toArray(Method[]::new);
+        if (!field.isAccessible()) {
+            field.setAccessible(true);
+        }
 
-        Map<String, Annotation[]> annotationMap = new HashMap<>();
+        Annotation[] annotations = field.getAnnotations();
 
-        Arrays.stream(methods).forEach(method -> {
-
-            Annotation[] annotations = method.getAnnotations();
-
-            annotations = Arrays.stream(annotations)
-                    .filter(annotation -> checkAnnotation(annotation)).toArray(Annotation[]::new);
-
-            annotationMap.put(method.toGenericString(), annotations);
-        });
-
-        return annotationMap;
+        return annotations;
     }
 
+    public static final Annotation[] getParamFieldAnnotations(Field field) {
+
+        if (field == null) {
+            return null;
+        }
+
+        Annotation[] annotations = getFieldAnnotations(field);
+
+        return annotations;
+    }
+
+    public static final Annotation[] getResultFieldAnnotations(Field field) {
+
+        if (field == null) {
+            return null;
+        }
+
+        Annotation[] annotations = getFieldAnnotations(field);
+
+        return annotations;
+    }
 }

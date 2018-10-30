@@ -1,6 +1,7 @@
 package org.happbean.candy.apidoc.code.parser;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.util.Arrays;
 
 /**
@@ -20,17 +21,17 @@ public class ApiClassParser {
         return methods;
     }
 
-    public static final Class[] getApiParamsClass(Method method) {
+    public static final Parameter[] getApiParams(Method method) {
 
-        Class[] paramsClass = JavaClassParser.getParamsClass(method);
+        Parameter[] parameters = JavaClassParser.getParamsClass(method);
 
-        paramsClass = Arrays.stream(paramsClass)
-                .filter(clazz -> ApiChecker.isApiParam(clazz)).toArray(Class[]::new);
+        parameters = Arrays.stream(parameters)
+                .filter(clazz -> ApiChecker.isApiParam(clazz)).toArray(Parameter[]::new);
 
-        return paramsClass;
+        return parameters;
     }
 
-    public static final Class getApiReponseClass(Method method) {
+    public static final Class getApiReponse(Method method) {
 
         Class reponseClass = JavaClassParser.getReponseClass(method);
 

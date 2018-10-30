@@ -1,6 +1,7 @@
 package org.happbean.candy.apidoc.code.parser;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 
 
 /**
@@ -19,13 +20,13 @@ public class JavaClassParser {
         return clazz.getMethods();
     }
 
-    public static Class[] getParamsClass(Method method) {
+    public static Parameter[] getParamsClass(Method method) {
 
         if (method == null) {
             return null;
         }
 
-        return method.getParameterTypes();
+        return method.getParameters();
     }
 
     public static Class getReponseClass(Method method) {

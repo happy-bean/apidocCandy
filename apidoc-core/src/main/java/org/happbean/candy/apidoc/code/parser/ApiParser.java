@@ -32,6 +32,7 @@ public class ApiParser {
     public static Parser getApiParser(Api api) {
 
         Parser parser = () -> {
+            System.out.print("api class: api=");
             System.out.println(api.value());
         };
 
@@ -41,14 +42,20 @@ public class ApiParser {
     public static Parser getActionParser(Action action) {
 
         Parser parser
-                = () -> System.out.println(action.name() + " " + action.path() + "...");
+                = () -> {
+            System.out.print("api method: action=");
+            System.out.println(action.name() + " " + action.path() + "...");
+        };
 
         return parser;
     }
 
     public static Parser getParamParser(Param param) {
 
-        Parser parser = () -> System.out.println(param.name() + " " + param.desc() + "...");
+        Parser parser = () -> {
+            System.out.print("api param: param=");
+            System.out.println(param.name() + " " + param.desc() + "...");
+        };
 
         return parser;
     }

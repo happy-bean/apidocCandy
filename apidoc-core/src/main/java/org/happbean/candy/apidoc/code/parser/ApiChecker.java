@@ -8,6 +8,7 @@ import org.happbean.candy.apidoc.util.CollectionUtil;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.util.Arrays;
 
 /**
@@ -41,9 +42,9 @@ public class ApiChecker {
         return false;
     }
 
-    public static boolean isApiParam(Class clazz){
+    public static boolean isApiParam(Parameter parameter){
 
-        Annotation[] annotations = clazz.getAnnotations();
+        Annotation[] annotations = parameter.getAnnotations();
 
         if (CollectionUtil.isEmpty(Arrays.asList(annotations))) {
             return false;
