@@ -3,6 +3,7 @@ package org.happbean.candy.apidoc.code.parser;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 
 /**
  * @author wgt
@@ -66,6 +67,17 @@ public class AnnotationParser {
         }
 
         Annotation[] annotations = getFieldAnnotations(field);
+
+        return annotations;
+    }
+
+    public static final Annotation[] getParamAnnotations(Parameter parameter) {
+
+        if (parameter == null) {
+            return null;
+        }
+
+        Annotation[] annotations = parameter.getDeclaredAnnotations();
 
         return annotations;
     }

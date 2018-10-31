@@ -30,7 +30,6 @@ public class FileParser {
         System.out.println("-------------------------------------");
 
         Method[] methods = clazz.getMethods();
-
         parseMethod(methods[1]);
 //        for (int i = 0; i < methods.length; i++) {
 //            Method method = methods[i];
@@ -66,7 +65,7 @@ public class FileParser {
         });
     }
 
-    public static  void parseResult(Class clazz){
+    public static void parseResult(Class clazz) {
 
     }
 
@@ -97,7 +96,7 @@ public class FileParser {
     public static void parseParamFiled(final Field field) {
         Annotation[] fieldAnnotations = AnnotationParser.getParamFieldAnnotations(field);
 
-        if(CollectionUtil.isEmpty(Arrays.asList(fieldAnnotations))){
+        if (CollectionUtil.isEmpty(Arrays.asList(fieldAnnotations))) {
             return;
         }
         Parser parser = ApiParser.getParser(fieldAnnotations[0]);

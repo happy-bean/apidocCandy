@@ -20,6 +20,7 @@ public class GeneratedXmlConf extends GeneratedConf {
     public GeneratedXmlConf(String fileName, String projectPath) {
 
         super(projectPath);
+
         this.fileName = fileName;
         this.xmlPath = projectPath + "." + this.fileName;
     }
@@ -30,7 +31,9 @@ public class GeneratedXmlConf extends GeneratedConf {
         CandyConfiguration configuration = XmlConfFormatter.parse(this.xmlPath);
 
         JdbcSystem.init(configuration);
+
         DbSystem.init(configuration);
+
         JavaTypeSystem.init(configuration);
     }
 }

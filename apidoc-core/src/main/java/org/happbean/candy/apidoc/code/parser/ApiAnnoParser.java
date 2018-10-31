@@ -9,6 +9,7 @@ import org.happbean.candy.apidoc.util.ArrayUtil;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.util.Arrays;
 
 /**
@@ -98,6 +99,28 @@ public class ApiAnnoParser {
 
         annotations = Arrays.stream(annotations)
                 .filter(annotation -> (annotation instanceof Result)).toArray(Annotation[]::new);
+
+        if (ArrayUtil.isEmpty(annotations)) {
+            return null;
+        }
+
+        return annotations[0];
+    }
+
+    public static final Annotation getParamAnnotation(Parameter parameter) {
+
+        if (parameter == null) {
+            return null;
+        }
+
+        Annotation[] annotations = AnnotationParser.getParamAnnotations(parameter);
+
+        if (ArrayUtil.isEmpty(annotations)) {
+            return null;
+        }
+
+        annotations = Arrays.stream(annotations)
+                .filter(annotation -> (annotation instanceof Param)).toArray(Annotation[]::new);
 
         if (ArrayUtil.isEmpty(annotations)) {
             return null;
