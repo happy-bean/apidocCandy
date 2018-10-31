@@ -34,17 +34,30 @@ public class AnnotationParser {
         return annotations;
     }
 
-    private static final Annotation[] getFieldAnnotations(Field field) {
+    public static final Annotation[] getResultAnnotations(Method method) {
 
-        if (field == null) {
+        if (method == null) {
             return null;
         }
 
-        if (!field.isAccessible()) {
-            field.setAccessible(true);
+        Class<?> clazz = method.getReturnType();
+
+        if (clazz == null) {
+            return null;
         }
 
-        Annotation[] annotations = field.getAnnotations();
+        Annotation[] annotations = getClassAnnotations(clazz);
+
+        return annotations;
+    }
+
+    public static final Annotation[] getParamAnnotations(Parameter parameter) {
+
+        if (parameter == null) {
+            return null;
+        }
+
+        Annotation[] annotations = parameter.getDeclaredAnnotations();
 
         return annotations;
     }
@@ -71,13 +84,17 @@ public class AnnotationParser {
         return annotations;
     }
 
-    public static final Annotation[] getParamAnnotations(Parameter parameter) {
+    private static final Annotation[] getFieldAnnotations(Field field) {
 
-        if (parameter == null) {
+        if (field == null) {
             return null;
         }
 
-        Annotation[] annotations = parameter.getDeclaredAnnotations();
+        if (!field.isAccessible()) {
+            field.setAccessible(true);
+        }
+
+        Annotation[] annotations = field.getAnnotations();
 
         return annotations;
     }

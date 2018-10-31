@@ -63,6 +63,28 @@ public class ApiAnnoParser {
         return annotations[0];
     }
 
+    public static final Annotation getApiParamAnnotation(Parameter parameter) {
+
+        if (parameter == null) {
+            return null;
+        }
+
+        Annotation[] annotations = AnnotationParser.getParamAnnotations(parameter);
+
+        if (ArrayUtil.isEmpty(annotations)) {
+            return null;
+        }
+
+        annotations = Arrays.stream(annotations)
+                .filter(annotation -> (annotation instanceof Param)).toArray(Annotation[]::new);
+
+        if (ArrayUtil.isEmpty(annotations)) {
+            return null;
+        }
+
+        return annotations[0];
+    }
+
     public static final Annotation getApiParamFieldAnnotation(Field field) {
 
         if (field == null) {
@@ -83,6 +105,28 @@ public class ApiAnnoParser {
         }
 
         return annotations[0];
+    }
+
+    public static final Annotation[] getApiResultAnnotations(Method method) {
+
+        if (method == null) {
+            return null;
+        }
+
+        Annotation[] annotations = AnnotationParser.getResultAnnotations(method);
+
+        if (ArrayUtil.isEmpty(annotations)) {
+            return null;
+        }
+
+        annotations = Arrays.stream(annotations)
+                .filter(annotation -> (annotation instanceof Result)).toArray(Annotation[]::new);
+
+        if (ArrayUtil.isEmpty(annotations)) {
+            return null;
+        }
+
+        return annotations;
     }
 
     public static final Annotation getApiResultFieldAnnotation(Field field) {
@@ -107,25 +151,4 @@ public class ApiAnnoParser {
         return annotations[0];
     }
 
-    public static final Annotation getParamAnnotation(Parameter parameter) {
-
-        if (parameter == null) {
-            return null;
-        }
-
-        Annotation[] annotations = AnnotationParser.getParamAnnotations(parameter);
-
-        if (ArrayUtil.isEmpty(annotations)) {
-            return null;
-        }
-
-        annotations = Arrays.stream(annotations)
-                .filter(annotation -> (annotation instanceof Param)).toArray(Annotation[]::new);
-
-        if (ArrayUtil.isEmpty(annotations)) {
-            return null;
-        }
-
-        return annotations[0];
-    }
 }
