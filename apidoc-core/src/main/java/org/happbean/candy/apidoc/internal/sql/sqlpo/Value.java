@@ -11,6 +11,11 @@ public class Value {
 
     private String columnValue;
 
+    public Value(String columnName, String columnValue) {
+        this.columnName = columnName;
+        this.columnValue = columnValue;
+    }
+
     public String getColumnName() {
         return columnName;
     }
