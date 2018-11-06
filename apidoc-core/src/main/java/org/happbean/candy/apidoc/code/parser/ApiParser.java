@@ -29,40 +29,38 @@ public class ApiParser {
         return parser;
     }
 
-    public static Parser getApiParser(Api api) {
+    private static Parser getApiParser(Api api) {
 
         Parser parser = () -> {
-            System.out.print("api class: api=");
-            System.out.println(api.value());
+            return api;
         };
 
         return parser;
     }
 
-    public static Parser getActionParser(Action action) {
-
-        Parser parser
-                = () -> {
-            System.out.print("api method: action=");
-            System.out.println(action.name() + " " + action.path() + "...");
-        };
-
-        return parser;
-    }
-
-    public static Parser getParamParser(Param param) {
+    private static Parser getActionParser(Action action) {
 
         Parser parser = () -> {
-            System.out.print("api param: param=");
-            System.out.println(param.name() + " " + param.desc() + "...");
+            return action;
         };
 
         return parser;
     }
 
-    public static Parser getResultParser(Result result) {
+    private static Parser getParamParser(Param param) {
 
-        Parser parser = () -> System.out.println(result.name() + " " + result.desc());
+        Parser parser = () -> {
+            return param;
+        };
+
+        return parser;
+    }
+
+    private static Parser getResultParser(Result result) {
+
+        Parser parser = () -> {
+            return result;
+        };
 
         return parser;
     }
