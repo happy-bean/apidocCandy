@@ -13,8 +13,6 @@ public @interface Param {
 
     String name() default "";
 
-    String value() default "";
-
     boolean required() default true;
 
     String desc() default "";
