@@ -1,6 +1,8 @@
 package org.happbean.candy.apidoc.internal.db;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -19,4 +21,13 @@ public abstract class Executer {
     public void closeConnection() throws SQLException {
         this.connection.close();
     }
+
+    public abstract int executeInsert(String sql) throws SQLException;
+
+    public abstract ResultSet executeSelect(String sql) throws SQLException;
+
+    public abstract int executeUpdate(String sql) throws SQLException;
+
+    public abstract int executeDelete(String sql) throws SQLException;
+
 }
