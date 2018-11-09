@@ -5,13 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.happybeen</groupId>
-    <artifactId>org.happybeen</artifactId>
+    <artifactId>apidoc-candy</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
     <modules>
         <module>apidoc-core</module>
         <module>apidoc-demo</module>
+        <module>apidoc-maven-plugin</module>
     </modules>
 
     <properties>
