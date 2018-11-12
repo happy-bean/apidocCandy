@@ -1,6 +1,10 @@
 package org.happbean.candy.apidoc.internal.system;
 
 import org.happbean.candy.apidoc.config.xml.elements.*;
+import org.happbean.candy.apidoc.util.CollectionUtil;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author wgt
@@ -11,7 +15,7 @@ public class DbSystem {
 
     public static final JavaSource JAVA_SOURCE = new JavaSource();
 
-    public static final Tables TABLES = new Tables();
+    public static final Map<String, Table> TABLES = new HashMap<>();
 
     public static void init(CandyConfiguration configuration) {
 
@@ -25,8 +29,18 @@ public class DbSystem {
     }
 
     public static void initTables(Tables tables) {
+        if (tables == null) {
+            //throw
+        }
 
-        TABLES.setTables(tables.getTables());
+        if (CollectionUtil.isEmpty(tables.getTables())) {
+            //throw
+        }
+
+        tables.getTables().stream().forEach(table -> {
+
+            TABLES.putIfAbsent(table.getTableName(), table);
+        });
     }
 
 }

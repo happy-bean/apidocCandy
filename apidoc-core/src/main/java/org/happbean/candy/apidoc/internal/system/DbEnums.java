@@ -1,7 +1,7 @@
 package org.happbean.candy.apidoc.internal.system;
 
 
-public class DbEnum {
+public class DbEnums {
 
     public static class TableName {
 
