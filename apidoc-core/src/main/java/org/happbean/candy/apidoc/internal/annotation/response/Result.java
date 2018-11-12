@@ -1,4 +1,4 @@
-package org.happbean.candy.apidoc.factory.annotation.response;
+package org.happbean.candy.apidoc.internal.annotation.response;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

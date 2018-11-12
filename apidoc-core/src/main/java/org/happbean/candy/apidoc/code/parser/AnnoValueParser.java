@@ -26,6 +26,6 @@ public class AnnoValueParser {
 
     private void parseValue(Parser parser) {
 
-        parser.parseValue();
+        //parser.parseValue();
     }
 }

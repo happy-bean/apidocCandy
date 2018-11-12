@@ -1,10 +1,10 @@
 package org.happbean.candy.apidoc.demo;
 
-import org.happbean.candy.apidoc.factory.annotation.Api;
-import org.happbean.candy.apidoc.factory.annotation.request.Action;
-import org.happbean.candy.apidoc.factory.annotation.request.Header;
-import org.happbean.candy.apidoc.factory.annotation.request.Param;
-import org.happbean.candy.apidoc.factory.enums.HttpMethod;
+import org.happbean.candy.apidoc.internal.annotation.Api;
+import org.happbean.candy.apidoc.internal.annotation.request.Action;
+import org.happbean.candy.apidoc.internal.annotation.request.Header;
+import org.happbean.candy.apidoc.internal.annotation.request.Param;
+import org.happbean.candy.apidoc.internal.enums.HttpMethod;
 
 /**
  * @author wgt

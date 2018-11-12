@@ -1,8 +1,8 @@
 package org.happbean.candy.apidoc.demo;
 
 import lombok.Data;
-import org.happbean.candy.apidoc.factory.annotation.request.Param;
-import org.happbean.candy.apidoc.factory.annotation.response.Result;
+import org.happbean.candy.apidoc.internal.annotation.request.Param;
+import org.happbean.candy.apidoc.internal.annotation.response.Result;
 
 /**
  * @author wgt

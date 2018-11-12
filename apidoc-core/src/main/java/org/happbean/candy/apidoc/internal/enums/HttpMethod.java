@@ -1,4 +1,4 @@
-package org.happbean.candy.apidoc.factory.enums;
+package org.happbean.candy.apidoc.internal.enums;
 
 /**
  * @author wgt

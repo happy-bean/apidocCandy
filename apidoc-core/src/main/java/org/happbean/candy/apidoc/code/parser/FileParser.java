@@ -30,7 +30,8 @@ public class FileParser {
         System.out.println("-------------------------------------");
 
         Method[] methods = clazz.getMethods();
-        parseMethod(methods[1]);
+        parseMethod(methods[2]);
+        parseResult(methods[2]);
 //        for (int i = 0; i < methods.length; i++) {
 //            Method method = methods[i];
 //            method.setAccessible(true);
@@ -51,7 +52,7 @@ public class FileParser {
         //解析方法注解
         Annotation[] methodAnnotations = AnnotationParser.getMethodAnnotations(method);
         Parser parser = ApiParser.getParser(methodAnnotations[0]);
-        parser.parseValue();
+        parser.getAnnotation();
 
         //解析参数注解
         Parameter[] apiParamsClass = ApiClassParser.getApiParams(method);
@@ -65,15 +66,17 @@ public class FileParser {
         });
     }
 
-    public static void parseResult(Class clazz) {
-
+    public static void parseResult(Method method) {
+        Annotation[] resultAnnotations = AnnotationParser.getResultAnnotations(method);
+        Parser parser = ApiParser.getParser(resultAnnotations[0]);
+        //parser.parseValue();
     }
 
     public static void parseParam(Parameter parameter) {
 
         Annotation[] annotations = parameter.getDeclaredAnnotations();
         Parser parser = ApiParser.getParser(annotations[0]);
-        parser.parseValue();
+//        parser.parseValue();
 
         if (!isJavaClass(parameter.getType())) {
             parseParamFileds(parameter.getType().getDeclaredFields());
@@ -100,6 +103,6 @@ public class FileParser {
             return;
         }
         Parser parser = ApiParser.getParser(fieldAnnotations[0]);
-        parser.parseValue();
+       // parser.parseValue();
     }
 }

@@ -1,9 +1,9 @@
 package org.happbean.candy.apidoc.code.parser;
 
-import org.happbean.candy.apidoc.factory.annotation.Api;
-import org.happbean.candy.apidoc.factory.annotation.request.Action;
-import org.happbean.candy.apidoc.factory.annotation.request.Param;
-import org.happbean.candy.apidoc.factory.annotation.response.Result;
+import org.happbean.candy.apidoc.internal.annotation.Api;
+import org.happbean.candy.apidoc.internal.annotation.request.Action;
+import org.happbean.candy.apidoc.internal.annotation.request.Param;
+import org.happbean.candy.apidoc.internal.annotation.response.Result;
 import org.happbean.candy.apidoc.util.CollectionUtil;
 
 import java.lang.annotation.Annotation;

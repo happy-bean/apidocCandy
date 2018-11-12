@@ -1,9 +1,9 @@
-package org.happbean.candy.apidoc.factory.enums;
+package org.happbean.candy.apidoc.internal.enums;
 
-import org.happbean.candy.apidoc.factory.annotation.Api;
-import org.happbean.candy.apidoc.factory.annotation.request.Action;
-import org.happbean.candy.apidoc.factory.annotation.request.Param;
-import org.happbean.candy.apidoc.factory.annotation.response.Result;
+import org.happbean.candy.apidoc.internal.annotation.Api;
+import org.happbean.candy.apidoc.internal.annotation.request.Action;
+import org.happbean.candy.apidoc.internal.annotation.request.Param;
+import org.happbean.candy.apidoc.internal.annotation.response.Result;
 
 /**
  * @author wgt

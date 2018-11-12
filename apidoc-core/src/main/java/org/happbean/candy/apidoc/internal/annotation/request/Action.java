@@ -1,4 +1,6 @@
-package org.happbean.candy.apidoc.factory.annotation.request;
+package org.happbean.candy.apidoc.internal.annotation.request;
+
+import org.happbean.candy.apidoc.internal.enums.HttpMethod;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,18 +9,20 @@ import java.lang.annotation.Target;
 
 /**
  * @author wgt
- * @date 2018-10-24
+ * @date 2018-09-17
  * @description
  **/
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Header {
+public @interface Action {
 
     String name() default "";
 
-    String value() default "";
+    String path() default "";
 
-    boolean required() default true;
+    HttpMethod[] method() default {};
+
+    Header[] headers() default {};
 
     String desc() default "";
 }

@@ -1,4 +1,4 @@
-package org.happbean.candy.apidoc.factory.annotation;
+package org.happbean.candy.apidoc.internal.annotation;
 
 import java.lang.annotation.*;
 
