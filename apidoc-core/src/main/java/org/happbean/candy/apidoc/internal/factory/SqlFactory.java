@@ -1,4 +1,4 @@
-package org.happbean.candy.apidoc.internal.sql;
+package org.happbean.candy.apidoc.internal.factory;
 
 import org.happbean.candy.apidoc.exception.SqlBuildException;
 

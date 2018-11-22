@@ -1,6 +1,6 @@
-package org.happbean.candy.apidoc.factory;
+package org.happbean.candy.apidoc.internal.factory;
 
-import org.happbean.candy.apidoc.factory.enums.AnnotationEnums;
+import org.happbean.candy.apidoc.internal.enums.AnnotationEnums;
 
 import java.util.Arrays;
 import java.util.List;

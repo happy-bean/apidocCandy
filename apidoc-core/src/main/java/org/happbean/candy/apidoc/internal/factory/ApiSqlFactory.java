@@ -1,7 +1,8 @@
-package org.happbean.candy.apidoc.internal.sql;
+package org.happbean.candy.apidoc.internal.factory;
 
 import org.happbean.candy.apidoc.config.xml.elements.Table;
 import org.happbean.candy.apidoc.exception.SqlBuildException;
+import org.happbean.candy.apidoc.internal.sql.SqlRules;
 import org.happbean.candy.apidoc.internal.sql.sqlpo.Value;
 import org.happbean.candy.apidoc.util.CollectionUtil;
 import org.happbean.candy.apidoc.util.StringUtil;
@@ -14,6 +15,16 @@ import java.util.List;
  * @description
  **/
 public class ApiSqlFactory implements SqlFactory<Table, List<Value>> {
+
+    private static class ApiSqlFactoryHolder {
+
+        public static SqlFactory factory = new ApiSqlFactory();
+    }
+
+    public static SqlFactory getInstance() {
+
+        return ApiSqlFactoryHolder.factory;
+    }
 
     @Override
     public String getInsertSql(Table table, List<Value> values) {

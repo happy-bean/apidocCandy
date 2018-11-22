@@ -1,9 +1,9 @@
 package org.happbean.candy.apidoc.internal.sql;
 
-import org.happbean.candy.apidoc.factory.annotation.request.Action;
-import org.happbean.candy.apidoc.factory.annotation.request.Header;
-import org.happbean.candy.apidoc.factory.annotation.request.Param;
-import org.happbean.candy.apidoc.factory.annotation.response.Result;
+import org.happbean.candy.apidoc.internal.annotation.request.Action;
+import org.happbean.candy.apidoc.internal.annotation.request.Header;
+import org.happbean.candy.apidoc.internal.annotation.request.Param;
+import org.happbean.candy.apidoc.internal.annotation.response.Result;
 import org.happbean.candy.apidoc.internal.factory.ApiSqlFactory;
 import org.happbean.candy.apidoc.internal.sql.sqlpo.ApiSqlPoValueParser;
 import org.happbean.candy.apidoc.internal.sql.sqlpo.SqlPoValueParser;
