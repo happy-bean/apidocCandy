@@ -1,9 +1,6 @@
 package org.happbean.candy.apidoc.internal.sql;
 
-import org.happbean.candy.apidoc.internal.annotation.request.Action;
-import org.happbean.candy.apidoc.internal.annotation.request.Header;
-import org.happbean.candy.apidoc.internal.annotation.request.Param;
-import org.happbean.candy.apidoc.internal.annotation.response.Result;
+import org.happbean.candy.apidoc.internal.db.dos.*;
 import org.happbean.candy.apidoc.internal.factory.ApiSqlFactory;
 import org.happbean.candy.apidoc.internal.sql.sqlpo.ApiSqlPoValueParser;
 import org.happbean.candy.apidoc.internal.sql.sqlpo.SqlPoValueParser;
@@ -12,7 +9,6 @@ import org.happbean.candy.apidoc.internal.sql.sqlpo.Value;
 import org.happbean.candy.apidoc.internal.system.DbEnums;
 import org.happbean.candy.apidoc.internal.system.DbSystem;
 
-import java.lang.annotation.Annotation;
 import java.util.List;
 
 /**
@@ -24,77 +20,81 @@ public class ApiSqlBuilder {
 
     private static SqlBuilder<Table, List<Value>> sqlBuilder = new DefaultSqlBuilder(ApiSqlFactory.getInstance());
 
-    private Annotation annotation = null;
+    private ApiDbObject object = null;
 
-    public ApiSqlBuilder(Annotation annotation) {
+    public ApiSqlBuilder(ApiDbObject object) {
 
-        this.annotation = annotation;
+        this.object = object;
     }
 
     public String buildSelectSql() {
 
-        SqlPoValueParser valueParser = ApiSqlPoValueParser.getSqlPoValueParser(this.annotation);
+        SqlPoValueParser valueParser = ApiSqlPoValueParser.getSqlPoValueParser(this.object);
 
         List<Value> values = valueParser.parseValue();
 
-        String sql = sqlBuilder.buildSelect(getTableName(), values);
+        String sql = sqlBuilder.buildSelect(getTable(), values);
 
         return sql;
     }
 
     public String buildInsertSql() {
 
-        SqlPoValueParser valueParser = ApiSqlPoValueParser.getSqlPoValueParser(this.annotation);
+        SqlPoValueParser valueParser = ApiSqlPoValueParser.getSqlPoValueParser(object);
 
         List<Value> values = valueParser.parseValue();
 
-        String sql = sqlBuilder.buildInsert(getTableName(), values);
+        String sql = sqlBuilder.buildInsert(getTable(), values);
 
         return sql;
     }
 
     public String buildUpdateSql() {
 
-        SqlPoValueParser valueParser = ApiSqlPoValueParser.getSqlPoValueParser(this.annotation);
+        SqlPoValueParser valueParser = ApiSqlPoValueParser.getSqlPoValueParser(object);
 
         List<Value> values = valueParser.parseValue();
 
-        String sql = sqlBuilder.buildUpdate(getTableName(), values);
+        String sql = sqlBuilder.buildUpdate(getTable(), values);
 
         return sql;
     }
 
     public String buildDeleteSql() {
 
-        SqlPoValueParser valueParser = ApiSqlPoValueParser.getSqlPoValueParser(this.annotation);
+        SqlPoValueParser valueParser = ApiSqlPoValueParser.getSqlPoValueParser(object);
 
         List<Value> values = valueParser.parseValue();
 
-        String sql = sqlBuilder.buildDelete(getTableName(), values);
+        String sql = sqlBuilder.buildDelete(getTable(), values);
 
         return sql;
     }
 
-    private Table getTableName() {
+    private Table getTable() {
 
         Table table = new Table();
 
-        String tableName = null;
+        if (this.object instanceof Action) {
+            org.happbean.candy.apidoc.config.xml.elements.Table table1 = DbSystem.TABLES.get(DbEnums.TableName.ACTION);
+            table.setTableName(table1.getTableName());
+            table.setColumns(table1.getColumns());
+        } else if (this.object instanceof Param) {
 
-        if (this.annotation instanceof Action) {
-            tableName = DbSystem.TABLES.get(DbEnums.TableName.ACTION).getTableName();
-        } else if (this.annotation instanceof Param) {
+            org.happbean.candy.apidoc.config.xml.elements.Table table1 = DbSystem.TABLES.get(DbEnums.TableName.PARAM);
+            table.setTableName(table1.getTableName());
+            table.setColumns(table1.getColumns());
+        } else if (this.object instanceof Header) {
 
-            tableName = DbSystem.TABLES.get(DbEnums.TableName.PARAM).getTableName();
-        } else if (this.annotation instanceof Header) {
+            org.happbean.candy.apidoc.config.xml.elements.Table table1 = DbSystem.TABLES.get(DbEnums.TableName.HEADER);
+            table.setTableName(table1.getTableName());
+            table.setColumns(table1.getColumns());
+        } else if (this.object instanceof Result) {
 
-            tableName = DbSystem.TABLES.get(DbEnums.TableName.HEADER).getTableName();
-        } else if (this.annotation instanceof Result) {
-
-            tableName = DbSystem.TABLES.get(DbEnums.TableName.RESULT).getTableName();
+            org.happbean.candy.apidoc.config.xml.elements.Table table1 = DbSystem.TABLES.get(DbEnums.TableName.RESULT);
+            table.setTableName(table1.getTableName());
+            table.setColumns(table1.getColumns());
         }
-
-        table.setTableName(tableName);
 
         return table;
     }

@@ -1,13 +1,10 @@
 package org.happbean.candy.apidoc.internal.sql.sqlpo;
 
-import lombok.Data;
-
 /**
  * @author wgt
  * @date 2018-10-23
  * @description
  **/
-@Data
 public class Value {
 
     private String columnName;
@@ -16,6 +13,22 @@ public class Value {
 
     public Value(String columnName, String columnValue) {
         this.columnName = columnName;
+        this.columnValue = columnValue;
+    }
+
+    public String getColumnName() {
+        return columnName;
+    }
+
+    public void setColumnName(String columnName) {
+        this.columnName = columnName;
+    }
+
+    public String getColumnValue() {
+        return columnValue;
+    }
+
+    public void setColumnValue(String columnValue) {
         this.columnValue = columnValue;
     }
 }

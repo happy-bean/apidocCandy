@@ -1,15 +1,11 @@
 package org.happbean.candy.apidoc.internal.sql.sqlpo;
 
 import org.happbean.candy.apidoc.config.xml.elements.Column;
-import org.happbean.candy.apidoc.internal.annotation.request.Action;
-import org.happbean.candy.apidoc.internal.annotation.request.Header;
-import org.happbean.candy.apidoc.internal.annotation.request.Param;
-import org.happbean.candy.apidoc.internal.annotation.response.Result;
+import org.happbean.candy.apidoc.internal.db.dos.*;
 import org.happbean.candy.apidoc.internal.system.DbEnums;
 import org.happbean.candy.apidoc.internal.system.DbSystem;
 import org.happbean.candy.apidoc.util.CollectionUtil;
 
-import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -22,18 +18,18 @@ import java.util.stream.Collectors;
  **/
 public class ApiSqlPoValueParser {
 
-    public static SqlPoValueParser getSqlPoValueParser(Annotation annotation) {
+    public static SqlPoValueParser getSqlPoValueParser(ApiDbObject object) {
 
         SqlPoValueParser parser = null;
 
-        if (annotation instanceof Action) {
-            parser = getActionSqlPoValueParser((Action) annotation);
-        } else if (annotation instanceof Param) {
-            parser = getParamSqlPoValueParser((Param) annotation);
-        } else if (annotation instanceof Header) {
-            parser = getHeaderSqlPoValueParser((Header) annotation);
-        } else if (annotation instanceof Result) {
-            parser = getResultSqlPoValueParser((Result) annotation);
+        if (object instanceof Action) {
+            parser = getActionSqlPoValueParser((Action) object);
+        } else if (object instanceof Param) {
+            parser = getParamSqlPoValueParser((Param) object);
+        } else if (object instanceof Header) {
+            parser = getHeaderSqlPoValueParser((Header) object);
+        } else if (object instanceof Result) {
+            parser = getResultSqlPoValueParser((Result) object);
         }
 
         return parser;
@@ -60,11 +56,13 @@ public class ApiSqlPoValueParser {
 
             Map<String, List<Column>> columns = getColumns(DbEnums.TableName.ACTION);
 
-            values.add(new Value(columns.get(DbEnums.Column.NAME).get(0).getProperty(), action.name()));
+            values.add(new Value(columns.get(DbEnums.Column.NAME).get(0).getValue(), action.getName()));
 
-            values.add(new Value(columns.get(DbEnums.Column.PATH).get(0).getProperty(), action.path()));
+            values.add(new Value(columns.get(DbEnums.Column.PATH).get(0).getValue(), action.getPath()));
 
-            values.add(new Value(columns.get(DbEnums.Column.DESC).get(0).getProperty(), action.desc()));
+            values.add(new Value(columns.get(DbEnums.Column.DESC).get(0).getValue(), action.getDesc()));
+
+            values.add(new Value(columns.get(DbEnums.Column.METHOD).get(0).getValue(), action.getMethod()));
 
             return values;
         };
@@ -80,11 +78,17 @@ public class ApiSqlPoValueParser {
 
             Map<String, List<Column>> columns = getColumns(DbEnums.TableName.PARAM);
 
-            values.add(new Value(columns.get(DbEnums.Column.NAME).get(0).getProperty(), param.name()));
+            values.add(new Value(columns.get(DbEnums.Column.ACTION_ID).get(0).getValue(), String.valueOf(param.getActionId())));
 
-            values.add(new Value(columns.get(DbEnums.Column.REQUIRED).get(0).getProperty(), String.valueOf(param.required())));
+            values.add(new Value(columns.get(DbEnums.Column.NAME).get(0).getValue(), param.getName()));
 
-            values.add(new Value(columns.get(DbEnums.Column.DESC).get(0).getProperty(), param.desc()));
+            values.add(new Value(columns.get(DbEnums.Column.TYPE).get(0).getValue(), param.getType()));
+
+            values.add(new Value(columns.get(DbEnums.Column.REQUIRED).get(0).getValue(), param.getType()));
+
+            values.add(new Value(columns.get(DbEnums.Column.DESC).get(0).getValue(), param.getDesc()));
+
+            values.add(new Value(columns.get(DbEnums.Column.LAST_ID).get(0).getValue(), String.valueOf(param.getLastId())));
 
             return values;
         };
@@ -100,13 +104,13 @@ public class ApiSqlPoValueParser {
 
             Map<String, List<Column>> columns = getColumns(DbEnums.TableName.RESULT);
 
-            values.add(new Value(columns.get(DbEnums.Column.NAME).get(0).getProperty(), header.name()));
+            values.add(new Value(columns.get(DbEnums.Column.ACTION_ID).get(0).getValue(), String.valueOf(header.getActionId())));
 
-            values.add(new Value(columns.get(DbEnums.Column.VALUE).get(0).getProperty(), header.value()));
+            values.add(new Value(columns.get(DbEnums.Column.NAME).get(0).getValue(), header.getName()));
 
-            values.add(new Value(columns.get(DbEnums.Column.REQUIRED).get(0).getProperty(), String.valueOf(header.required())));
+            values.add(new Value(columns.get(DbEnums.Column.REQUIRED).get(0).getValue(), header.getRequired()));
 
-            values.add(new Value(columns.get(DbEnums.Column.DESC).get(0).getProperty(), header.desc()));
+            values.add(new Value(columns.get(DbEnums.Column.DESC).get(0).getValue(), header.getDesc()));
 
             return values;
         };
@@ -122,11 +126,17 @@ public class ApiSqlPoValueParser {
 
             Map<String, List<Column>> columns = getColumns(DbEnums.TableName.RESULT);
 
-            values.add(new Value(columns.get(DbEnums.Column.NAME).get(0).getProperty(), result.name()));
+            values.add(new Value(columns.get(DbEnums.Column.ACTION_ID).get(0).getValue(), String.valueOf(result.getActionId())));
 
-            values.add(new Value(columns.get(DbEnums.Column.VALUE).get(0).getProperty(), result.value()));
+            values.add(new Value(columns.get(DbEnums.Column.NAME).get(0).getValue(), result.getName()));
 
-            values.add(new Value(columns.get(DbEnums.Column.DESC).get(0).getProperty(), result.desc()));
+            values.add(new Value(columns.get(DbEnums.Column.TYPE).get(0).getValue(), result.getType()));
+
+            values.add(new Value(columns.get(DbEnums.Column.VALUE).get(0).getValue(), result.getValue()));
+
+            values.add(new Value(columns.get(DbEnums.Column.DESC).get(0).getValue(), result.getDesc()));
+
+            values.add(new Value(columns.get(DbEnums.Column.LAST_ID).get(0).getValue(), String.valueOf(result.getLastId())));
 
             return values;
         };

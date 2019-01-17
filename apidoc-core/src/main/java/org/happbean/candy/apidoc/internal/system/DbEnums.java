@@ -29,6 +29,10 @@ public class DbEnums {
         public static final String REQUIRED = "required";
 
         public static final String VALUE = "value";
+
+        public static final String ACTION_ID = "actionId";
+
+        public static final String LAST_ID = "lastId";
     }
 
 }

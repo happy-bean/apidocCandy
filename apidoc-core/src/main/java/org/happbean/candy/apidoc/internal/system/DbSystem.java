@@ -13,20 +13,13 @@ import java.util.Map;
  **/
 public class DbSystem {
 
-    public static final JavaSource JAVA_SOURCE = new JavaSource();
-
     public static final Map<String, Table> TABLES = new HashMap<>();
 
     public static void init(CandyConfiguration configuration) {
 
-        initJavaSource(configuration.getJavaSource());
         initTables(configuration.getTables());
     }
 
-    public static void initJavaSource(JavaSource source) {
-
-        JAVA_SOURCE.setPackage(source.getPackage());
-    }
 
     public static void initTables(Tables tables) {
         if (tables == null) {
@@ -39,7 +32,7 @@ public class DbSystem {
 
         tables.getTables().stream().forEach(table -> {
 
-            TABLES.putIfAbsent(table.getTableName(), table);
+            TABLES.putIfAbsent(table.getProperty(), table);
         });
     }
 

@@ -81,7 +81,6 @@ public class ApiAnnoParser {
         if (ArrayUtil.isEmpty(annotations)) {
             return null;
         }
-
         return annotations[0];
     }
 

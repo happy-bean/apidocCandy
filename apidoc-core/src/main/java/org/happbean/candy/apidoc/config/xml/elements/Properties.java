@@ -13,6 +13,8 @@ public class Properties {
 
     @XmlAttribute(name = "resource")
     public String getResource() {
+
+        resource = resource.split("\\.")[0];
         return resource;
     }
 

@@ -3,7 +3,7 @@ package org.happbean.candy.apidoc.api;
 import org.happbean.candy.apidoc.config.xml.XmlConfFormatter;
 import org.happbean.candy.apidoc.config.xml.elements.CandyConfiguration;
 import org.happbean.candy.apidoc.internal.system.DbSystem;
-import org.happbean.candy.apidoc.internal.system.JavaTypeSystem;
+import org.happbean.candy.apidoc.internal.system.JavaSystem;
 import org.happbean.candy.apidoc.internal.system.JdbcSystem;
 
 /**
@@ -22,7 +22,7 @@ public class GeneratedXmlConf extends GeneratedConf {
         super(projectPath);
 
         this.fileName = fileName;
-        this.xmlPath = projectPath + "." + this.fileName;
+        this.xmlPath = projectPath + "/" + this.fileName;
     }
 
     @Override
@@ -34,6 +34,6 @@ public class GeneratedXmlConf extends GeneratedConf {
 
         DbSystem.init(configuration);
 
-        JavaTypeSystem.init(configuration);
+        JavaSystem.init(configuration);
     }
 }

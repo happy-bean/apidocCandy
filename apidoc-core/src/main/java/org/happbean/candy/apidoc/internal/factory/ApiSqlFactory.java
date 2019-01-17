@@ -1,6 +1,6 @@
 package org.happbean.candy.apidoc.internal.factory;
 
-import org.happbean.candy.apidoc.config.xml.elements.Table;
+import org.happbean.candy.apidoc.internal.sql.sqlpo.Table;
 import org.happbean.candy.apidoc.exception.SqlBuildException;
 import org.happbean.candy.apidoc.internal.sql.SqlRules;
 import org.happbean.candy.apidoc.internal.sql.sqlpo.Value;
@@ -33,19 +33,29 @@ public class ApiSqlFactory implements SqlFactory<Table, List<Value>> {
 
         StringBuffer sql = new StringBuffer();
 
-        sql.append(SqlRules.MYSQL.INSERT).append(table.getTableName());
+        sql.append(SqlRules.MYSQL.INSERT)
+                .append(table.getTableName())
+                .append(SqlRules.MYSQL.OPENBRACE);
+
         values.stream().forEach(value -> {
-            sql.append(value.getColumnName()).append(SqlRules.MYSQL.COMMA);
+            sql.append(SqlRules.MYSQL.BACKTICK)
+                    .append(value.getColumnName())
+                    .append(SqlRules.MYSQL.BACKTICK)
+                    .append(SqlRules.MYSQL.COMMA);
         });
         sql.deleteCharAt(sql.length() - 1);
 
-        sql.append(SqlRules.MYSQL.CLOSEBRACE).append(SqlRules.MYSQL.VALUE)
+        sql.append(SqlRules.MYSQL.CLOSEBRACE)
+                .append(SqlRules.MYSQL.VALUE)
                 .append(SqlRules.MYSQL.OPENBRACE);
         values.stream().forEach(value -> {
-            sql.append(value.getColumnValue()).append(SqlRules.MYSQL.COMMA);
+            sql.append(SqlRules.MYSQL.QUOTE)
+                    .append(value.getColumnValue())
+                    .append(SqlRules.MYSQL.QUOTE)
+                    .append(SqlRules.MYSQL.COMMA);
         });
         sql.deleteCharAt(sql.length() - 1);
-
+        sql.append(SqlRules.MYSQL.CLOSEBRACE);
         return sql.toString();
     }
 
@@ -56,20 +66,30 @@ public class ApiSqlFactory implements SqlFactory<Table, List<Value>> {
         StringBuffer sql = new StringBuffer();
         sql.append(SqlRules.MYSQL.SELECT);
         table.getColumns().stream().forEach(column -> {
-            sql.append(column.getValue()).append(SqlRules.MYSQL.COMMA);
+            sql.append(SqlRules.MYSQL.QUOTE)
+                    .append(column.getValue())
+                    .append(SqlRules.MYSQL.QUOTE)
+                    .append(SqlRules.MYSQL.COMMA);
         });
         sql.deleteCharAt(sql.length() - 1);
 
+        sql.append(SqlRules.MYSQL.FROM).append(table.getTableName());
         if (CollectionUtil.isNotEmpty(values)) {
             sql.append(SqlRules.MYSQL.WHERE);
             values.stream().forEach(value -> {
-                sql.append(value.getColumnName()).append(SqlRules.MYSQL.EQUALSSIGN)
-                        .append(value.getColumnValue()).append(SqlRules.MYSQL.COMMA);
+                sql.append(SqlRules.MYSQL.BACKTICK)
+                        .append(value.getColumnName())
+                        .append(SqlRules.MYSQL.BACKTICK)
+                        .append(SqlRules.MYSQL.EQUALSSIGN)
+                        .append(SqlRules.MYSQL.QUOTE)
+                        .append(value.getColumnValue())
+                        .append(SqlRules.MYSQL.QUOTE)
+                        .append(SqlRules.MYSQL.AND);
             });
         }
-        sql.deleteCharAt(sql.length() - 1);
+        String substring = sql.substring(0, sql.length() - 4);
 
-        return sql.toString();
+        return substring;
     }
 
     @Override
@@ -82,12 +102,18 @@ public class ApiSqlFactory implements SqlFactory<Table, List<Value>> {
                 .append(table.getTableName()).append(SqlRules.MYSQL.WHERE);
 
         values.stream().forEach(value -> {
-            sql.append(value.getColumnName()).append(SqlRules.MYSQL.EQUALSSIGN)
-                    .append(value.getColumnValue()).append(SqlRules.MYSQL.AND);
+            sql.append(SqlRules.MYSQL.BACKTICK)
+                    .append(value.getColumnName())
+                    .append(SqlRules.MYSQL.BACKTICK)
+                    .append(SqlRules.MYSQL.EQUALSSIGN)
+                    .append(SqlRules.MYSQL.QUOTE)
+                    .append(value.getColumnValue())
+                    .append(SqlRules.MYSQL.QUOTE)
+                    .append(SqlRules.MYSQL.AND);
         });
-        sql.deleteCharAt(sql.length() - 4);
+        String substring = sql.substring(0, sql.length() - 4);
 
-        return sql.toString();
+        return substring;
     }
 
     @Override
@@ -99,8 +125,14 @@ public class ApiSqlFactory implements SqlFactory<Table, List<Value>> {
         sql.append(SqlRules.MYSQL.UPDATE).append(table.getTableName())
                 .append(SqlRules.MYSQL.SET);
         values.stream().forEach(value -> {
-            sql.append(value.getColumnName()).append(SqlRules.MYSQL.EQUALSSIGN)
-                    .append(value.getColumnValue()).append(SqlRules.MYSQL.COMMA);
+            sql.append(SqlRules.MYSQL.BACKTICK)
+                    .append(value.getColumnName())
+                    .append(SqlRules.MYSQL.BACKTICK)
+                    .append(SqlRules.MYSQL.EQUALSSIGN)
+                    .append(SqlRules.MYSQL.QUOTE)
+                    .append(value.getColumnValue())
+                    .append(SqlRules.MYSQL.QUOTE)
+                    .append(SqlRules.MYSQL.COMMA);
         });
         sql.deleteCharAt(sql.length() - 1);
 

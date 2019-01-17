@@ -36,5 +36,10 @@ public class SqlRules {
         public static final String COMMA = ",";
 
         public static final String EQUALSSIGN = "=";
+
+        public static final String QUOTE = "'";
+
+        public static final String BACKTICK = "`";
+
     }
 }

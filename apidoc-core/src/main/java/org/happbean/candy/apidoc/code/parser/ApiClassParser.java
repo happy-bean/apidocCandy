@@ -1,8 +1,12 @@
 package org.happbean.candy.apidoc.code.parser;
 
+import org.happbean.candy.apidoc.config.xml.elements.Property;
+import org.happbean.candy.apidoc.internal.system.JavaSystem;
+
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author wgt
@@ -36,5 +40,19 @@ public class ApiClassParser {
         Class reponseClass = JavaClassParser.getReponseClass(method);
 
         return ApiChecker.isApiResult(reponseClass) ? reponseClass : null;
+    }
+
+    public static final String getClassApiType(Class clazz) {
+
+        List<Property> properties = JavaSystem.JAVA_TYPE_RESOLVER.getProperties();
+
+        for (Property property : properties) {
+            if (clazz.getName().endsWith(property.getJavaType())) {
+                return property.getApiType();
+            }
+        }
+        String[] strs = clazz.getName().split("\\.");
+        String apiTypeName = strs[strs.length - 1];
+        return apiTypeName;
     }
 }

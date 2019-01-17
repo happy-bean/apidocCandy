@@ -42,7 +42,7 @@ public class ApiChecker {
         return false;
     }
 
-    public static boolean isApiParam(Parameter parameter){
+    public static boolean isApiParam(Parameter parameter) {
 
         Annotation[] annotations = parameter.getAnnotations();
 
@@ -59,20 +59,41 @@ public class ApiChecker {
         return false;
     }
 
-    public static boolean isApiResult(Class clazz){
+    public static boolean isApiResult(Class clazz) {
 
         Annotation[] annotations = clazz.getAnnotations();
 
-        if (CollectionUtil.isEmpty(Arrays.asList(annotations))) {
-            return false;
-        }
+        if (CollectionUtil.isNotEmpty(Arrays.asList(annotations))) {
+            for (Annotation annotation : annotations) {
 
-        for (Annotation annotation : annotations) {
-
-            if (annotation instanceof Result) {
-                return true;
+                if (annotation instanceof Result) {
+                    return true;
+                }
             }
         }
+
+        if (clazz.equals(java.lang.Integer.class) ||
+                clazz.equals(java.lang.Byte.class) ||
+                clazz.equals(java.lang.Long.class) ||
+                clazz.equals(java.lang.Double.class) ||
+                clazz.equals(java.lang.Float.class) ||
+                clazz.equals(java.lang.Character.class) ||
+                clazz.equals(java.lang.Short.class) ||
+                clazz.equals(java.lang.Boolean.class)) {
+            return true;
+        }
+
+        if (clazz.getName().equals("int") ||
+                clazz.getName().equals("byte") ||
+                clazz.getName().equals("long") ||
+                clazz.getName().equals("double") ||
+                clazz.getName().equals("float") ||
+                clazz.getName().equals("char") ||
+                clazz.getName().equals("short") ||
+                clazz.getName().equals("boolean")) {
+            return true;
+        }
+
         return false;
     }
 

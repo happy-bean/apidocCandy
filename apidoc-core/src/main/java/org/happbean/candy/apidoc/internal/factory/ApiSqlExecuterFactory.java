@@ -1,17 +1,11 @@
 package org.happbean.candy.apidoc.internal.factory;
 
-import org.happbean.candy.apidoc.internal.annotation.request.Action;
-import org.happbean.candy.apidoc.internal.annotation.request.Header;
-import org.happbean.candy.apidoc.internal.annotation.request.Param;
-import org.happbean.candy.apidoc.internal.annotation.response.Result;
 import org.happbean.candy.apidoc.internal.db.DefaultSqlExecuter;
 import org.happbean.candy.apidoc.internal.db.Executer;
 import org.happbean.candy.apidoc.internal.db.SqlExecuter;
+import org.happbean.candy.apidoc.internal.db.dos.*;
 import org.happbean.candy.apidoc.internal.sql.ApiSqlBuilder;
 
-import java.lang.annotation.Annotation;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 /**
  * @author wgt
@@ -20,53 +14,47 @@ import java.sql.SQLException;
  **/
 public class ApiSqlExecuterFactory {
 
-    public static SqlExecuter getApiSqlExecuter(Object annotation) {
+    public static SqlExecuter getApiSqlExecuter(ApiDbObject object) {
 
         SqlExecuter executer = null;
 
-        if (annotation instanceof Action) {
+        if (object instanceof Action) {
 
-            executer = getActionSqlExecuter((Action) annotation);
-        } else if (annotation instanceof Param) {
+            executer = getActionSqlExecuter((Action) object);
+        } else if (object instanceof Param) {
 
-            executer = getParamSqlExecuter((Param) annotation);
-        } else if (annotation instanceof Header) {
+            executer = getParamSqlExecuter((Param) object);
+        } else if (object instanceof Header) {
 
-            executer = getHeaderSqlExecuter((Header) annotation);
-        } else if (annotation instanceof Result) {
+            executer = getHeaderSqlExecuter((Header) object);
+        } else if (object instanceof Result) {
 
-            executer = getResultSqlExecuter((Result) annotation);
+            executer = getResultSqlExecuter((Result) object);
+        }else {
+
         }
 
         return executer;
     }
 
-    private static SqlExecuter getSqlExecuter(Annotation annotation) {
+    private static SqlExecuter getSqlExecuter(ApiDbObject object) {
 
         SqlExecuter sqlExecuter = () -> {
 
             Executer executer = new DefaultSqlExecuter(ConnectionFactory.getConnection());
 
-            ApiSqlBuilder sqlBuilder = new ApiSqlBuilder(annotation);
+            ApiSqlBuilder sqlBuilder = new ApiSqlBuilder(object);
 
-            ResultSet resultSet = executer.executeSelect(sqlBuilder.buildSelectSql());
-
-            int columnCount = resultSet.getMetaData().getColumnCount();
-
-            resultSet.close();
+            long columnCount = executer.executeSelect(sqlBuilder.buildSelectSql());
 
             if (columnCount != 0) {
 
-                int i = executer.executeDelete(sqlBuilder.buildDeleteSql());
+                long i = executer.executeDelete(sqlBuilder.buildDeleteSql());
             }
 
-            try {
-                executer.closeConnection();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-            return executer.executeInsert(sqlBuilder.buildInsertSql());
+            long i = executer.executeInsert(sqlBuilder.buildInsertSql());
+            executer.connection.close();
+            return i;
         };
 
         return sqlExecuter;

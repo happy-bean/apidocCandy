@@ -25,7 +25,7 @@ public class ObjectFactory {
                 clazz = Class.forName(className, true, classLoader);
                 return clazz;
             } catch (Throwable e) {
-                // ignore - fail safe below
+                // ignore
             }
         }
 
@@ -39,7 +39,7 @@ public class ObjectFactory {
             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
             clazz = Class.forName(className, true, classLoader);
         } catch (Exception e) {
-            // ignore - failsafe below
+            // ignore
         }
 
         if (clazz == null) {

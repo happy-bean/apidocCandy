@@ -13,6 +13,8 @@ public class Table {
 
     private String tableName;
 
+    private String property;
+
     private List<Column> columns;
 
     @XmlAttribute(name = "tableName")
@@ -22,6 +24,15 @@ public class Table {
 
     public void setTableName(String tableName) {
         this.tableName = tableName;
+    }
+
+    @XmlAttribute(name = "property")
+    public String getProperty() {
+        return property;
+    }
+
+    public void setProperty(String property) {
+        this.property = property;
     }
 
     @XmlElement(name = "column")

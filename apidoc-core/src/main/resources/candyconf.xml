@@ -2,7 +2,7 @@
 
 <candyConfiguration>
 
-    <javaSource pakage="org.happbean.candy.apidoc.demo"/>
+    <javaSource package="org.happbean.candy.apidoc.demo"/>
 
     <!-- 引入配置文件 -->
     <properties resource="candy.properties"/>

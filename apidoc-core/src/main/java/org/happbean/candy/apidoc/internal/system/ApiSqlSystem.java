@@ -1,9 +1,8 @@
 package org.happbean.candy.apidoc.internal.system;
 
-import org.happbean.candy.apidoc.config.confpo.Action;
-import org.happbean.candy.apidoc.config.confpo.Header;
-import org.happbean.candy.apidoc.config.confpo.Param;
-import org.happbean.candy.apidoc.config.confpo.Result;
+import org.happbean.candy.apidoc.internal.db.dos.*;
+
+import java.util.Arrays;
 
 /**
  * @author wgt
@@ -12,55 +11,51 @@ import org.happbean.candy.apidoc.config.confpo.Result;
  **/
 public class ApiSqlSystem {
 
-    public static final Action ACTION = new Action();
+    public static Action initAction(org.happbean.candy.apidoc.internal.annotation.request.Action action) {
+        Action ACTION = new Action();
 
-    public static final Header HEADER = new Header();
+        ACTION.setName(action.name());
+        if (action.method() != null) {
+            StringBuilder builder = new StringBuilder();
+            Arrays.stream(action.method()).forEach(httpMethod -> {
+                builder.append(httpMethod.name()).append("|");
+            });
+            builder.deleteCharAt(builder.length() - 1);
+            ACTION.setMethod(builder.toString());
+        }
+        ACTION.setPath(action.path());
+        ACTION.setDesc(action.desc());
 
-    public static final Param PARAM = new Param();
-
-    public static final Result RESULT = new Result();
-
-    public static void init(Action action, Header header, Param param, Result result) {
-
+        return ACTION;
     }
 
-    private static void initAction(Action action) {
+    public static Header initHeader(org.happbean.candy.apidoc.internal.annotation.request.Header header) {
+        Header HEADER = new Header();
 
-        ACTION.setId(action.getId());
-        ACTION.setName(action.getName());
-        ACTION.setMethod(action.getMethod());
-        ACTION.setPath(action.getPath());
-        ACTION.setDesc(action.getDesc());
+        HEADER.setName(header.name());
+        HEADER.setRequired(String.valueOf(header.required()));
+        HEADER.setDesc(header.desc());
+
+        return HEADER;
     }
 
-    private static void initHeader(Header header) {
+    public static Param initParam(org.happbean.candy.apidoc.internal.annotation.request.Param param) {
+        Param PARAM = new Param();
 
-        HEADER.setId(header.getId());
-        HEADER.setActionId(header.getActionId());
-        HEADER.setName(header.getName());
-        HEADER.setRequired(header.getRequired());
-        HEADER.setDesc(header.getDesc());
+        PARAM.setName(param.name());
+        PARAM.setDesc(param.desc());
+        PARAM.setRequired(String.valueOf(param.required()));
+
+        return PARAM;
     }
 
-    private static void initParam(Param param) {
-
-        PARAM.setId(param.getId());
-        PARAM.setActionId(param.getActionId());
-        PARAM.setName(param.getName());
-        PARAM.setType(param.getType());
-        PARAM.setDesc(param.getDesc());
-        PARAM.setRequired(param.getRequired());
-        PARAM.setLastId(param.getLastId());
-    }
-
-    private static void initResult(Result result) {
-
-        RESULT.setId(result.getId());
-        RESULT.setActionId(result.getActionId());
-        RESULT.setName(result.getName());
-        RESULT.setType(result.getType());
-        RESULT.setValue(result.getValue());
-        RESULT.setDesc(result.getDesc());
-        RESULT.setLastId(result.getLastId());
+    public static Result initResult(org.happbean.candy.apidoc.internal.annotation.response.Result result) {
+        Result RESULT = new Result();
+        if(result!=null) {
+            RESULT.setName(result.name());
+            RESULT.setValue(result.value());
+            RESULT.setDesc(result.desc());
+        }
+        return RESULT;
     }
 }

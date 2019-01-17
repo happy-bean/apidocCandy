@@ -1,8 +1,14 @@
 package org.happbean.candy.apidoc.api;
 
+import org.happbean.candy.apidoc.code.parser.JavaFileParser;
+import org.happbean.candy.apidoc.internal.system.JdbcSystem;
+
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Arrays;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  * @author wgt
@@ -12,17 +18,19 @@ import java.util.Arrays;
 public class ApiGenerator {
 
     public static void main(String[] args) throws IOException {
-        File file4 = new File(ApiGenerator.class.getResource("/").getPath());
-        System.out.println(file4.getAbsolutePath());
-        System.out.println();
-        Arrays.stream(file4.listFiles()).forEach(file -> {
-            System.out.println(file.getName());
-        });
-        System.out.println(ApiGenerator.class.getResource("/").toString());
+        File files = new File(ApiGenerator.class.getResource("/").getPath());
+        String projectPath = files.getAbsolutePath();
 
-        String path2 = Thread.currentThread().getContextClassLoader().getResource("/").getPath();
 
-        System.out.println(path2);
+        String xmlFileName = "candyconf.xml";
+        GeneratedConf generatedConf = new GeneratedXmlConf(xmlFileName,projectPath);
+        generatedConf.generated();
+
+        String classPath = JdbcSystem.JDBC_CONNECTION.getClassPath();
+
+        System.out.println(classPath);
+
+        JavaFileParser.parse();
     }
 
 
