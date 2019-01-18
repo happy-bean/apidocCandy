@@ -2,15 +2,18 @@ package org.happbean.candy.apidoc.code.parser;
 
 import org.happbean.candy.apidoc.code.PackageScanner;
 import org.happbean.candy.apidoc.internal.annotation.request.Action;
+import org.happbean.candy.apidoc.internal.annotation.request.Header;
 import org.happbean.candy.apidoc.internal.annotation.request.Param;
 import org.happbean.candy.apidoc.internal.annotation.response.Result;
 import org.happbean.candy.apidoc.internal.db.SqlExecuter;
 import org.happbean.candy.apidoc.internal.db.dos.ApiDbObject;
 import org.happbean.candy.apidoc.internal.factory.ApiSqlExecuterFactory;
+import org.happbean.candy.apidoc.internal.factory.ConnectionFactory;
 import org.happbean.candy.apidoc.internal.system.ApiSqlSystem;
 import org.happbean.candy.apidoc.internal.system.JavaSystem;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.sql.SQLException;
@@ -31,6 +34,8 @@ public class JavaFileParser {
         apiClasses.stream().forEach(clazz -> {
             parseClass(clazz);
         });
+
+        ConnectionFactory.closeConnection();
     }
 
     private static void parseClass(Class clazz) {
@@ -48,20 +53,33 @@ public class JavaFileParser {
 
         Object actionId = excuteSql(action);
 
-        Parameter[] parameters = ApiClassParser.getApiParams(method);
-        long parameterId = -1;
+        Action action1 = (Action) annotation;
 
         Object[] params = new Object[2];
         params[0] = actionId;
+        params[1] = -1L;
+
+        Header[] headers = action1.headers();
+        Arrays.stream(headers).forEach(header -> {
+            parseHeader(header, params);
+        });
+
+        Parameter[] parameters = ApiClassParser.getApiParams(method);
 
         for (Parameter parameter : parameters) {
-            params[1] = parameterId;
-            parameterId = parseParameter(parameter, params);
+            parseParameter(parameter, params);
         }
-
+        params[1] = -1L;
         Class reponse = ApiClassParser.getApiReponse(method);
 
         parseReponse(reponse, params);
+    }
+
+    private static long parseHeader(Header header, Object[] params) {
+        org.happbean.candy.apidoc.internal.db.dos.Header header1 = ApiSqlSystem.initHeader(header);
+        header1.setActionId((long) params[0]);
+        long headerId = (long) excuteSql(header1);
+        return headerId;
     }
 
     private static long parseParameter(Parameter parameter, Object[] params) {
@@ -71,16 +89,46 @@ public class JavaFileParser {
         param.setLastId((long) params[1]);
         String classApiType = ApiClassParser.getClassApiType(parameter.getType());
         param.setType(classApiType);
-        return (long) excuteSql(param);
+
+        long parameterId = (long) excuteSql(param);
+
+        Field[] fields = ApiClassParser.getFields(parameter.getType());
+        Arrays.stream(fields).forEach(field -> {
+            Annotation annotation1 = ApiAnnoParser.getApiParamFieldAnnotation(field);
+            if (annotation1 != null) {
+                org.happbean.candy.apidoc.internal.db.dos.Param param1 = ApiSqlSystem.initParam((Param) annotation1);
+                param1.setActionId((long) params[0]);
+                param1.setLastId(parameterId);
+                String classApiType1 = ApiClassParser.getClassApiType(field.getType());
+                param1.setType(classApiType1);
+                excuteSql(param1);
+            }
+        });
+
+        return parameterId;
     }
 
     private static void parseReponse(Class clazz, Object[] params) {
         Annotation annotation = ApiAnnoParser.getApiClassAnnotation(clazz);
         org.happbean.candy.apidoc.internal.db.dos.Result result = ApiSqlSystem.initResult((Result) annotation);
         result.setActionId((long) params[0]);
+        result.setLastId((long) params[1]);
         String classApiType = ApiClassParser.getClassApiType(clazz);
         result.setType(classApiType);
-        excuteSql(result);
+        long resultId = (long) excuteSql(result);
+
+        Field[] fields = ApiClassParser.getFields(clazz);
+        Arrays.stream(fields).forEach(field -> {
+            Annotation annotation1 = ApiAnnoParser.getApiResultFieldAnnotation(field);
+            if (annotation1 != null) {
+                org.happbean.candy.apidoc.internal.db.dos.Result result1 = ApiSqlSystem.initResult((Result) annotation1);
+                result1.setActionId((long) params[0]);
+                result1.setLastId(resultId);
+                String classApiType1 = ApiClassParser.getClassApiType(field.getType());
+                result1.setType(classApiType1);
+                excuteSql(result1);
+            }
+        });
     }
 
     private static Object excuteSql(ApiDbObject object) {

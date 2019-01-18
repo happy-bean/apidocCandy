@@ -21,18 +21,27 @@ public class ConnectionFactory {
         }
     }
 
-    public static Connection getConnection() {
+    private static Connection connection = null;
 
-        Connection connection = null;
-
-
+    static {
         try {
             connection = (Connection) DriverManager.getConnection(JdbcSystem.JDBC_CONNECTION.getConnectionURL(), JdbcSystem.JDBC_CONNECTION.getUserId(), JdbcSystem.JDBC_CONNECTION.getPassword());
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static Connection getConnection() {
 
         return connection;
     }
 
+    public static void closeConnection(){
+
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -26,9 +26,9 @@ public class UserController {
         return 0;
     }
 
-    @Action(name = "update user info", path = "/update", method = {HttpMethod.PUT}, desc = "update user info", headers = {@Header(name = "session_id", desc = "a596c48a-2805-44f5-b336-aec208f2ff18")})
-    public int update(@Param(name = "num", required = true, desc = "user num") String num,
-                      @Param(name = "pass", required = true, desc = "user pass") String pass) {
+    @Action(name = "update user info", path = "/update", method = {HttpMethod.PUT}, desc = "update user info", headers = {@Header(name = "cookie", desc = "a596c48a-2805-44f5-b336-aec208f2ff18")})
+    public int update(@Param(name = "num", required = false, desc = "user num") String num,
+                      @Param(name = "pass", required = false, desc = "user pass") String pass) {
         //...
         return 0;
     }

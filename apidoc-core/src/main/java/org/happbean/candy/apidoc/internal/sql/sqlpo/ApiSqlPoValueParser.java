@@ -84,7 +84,7 @@ public class ApiSqlPoValueParser {
 
             values.add(new Value(columns.get(DbEnums.Column.TYPE).get(0).getValue(), param.getType()));
 
-            values.add(new Value(columns.get(DbEnums.Column.REQUIRED).get(0).getValue(), param.getType()));
+            values.add(new Value(columns.get(DbEnums.Column.REQUIRED).get(0).getValue(), param.getRequired()));
 
             values.add(new Value(columns.get(DbEnums.Column.DESC).get(0).getValue(), param.getDesc()));
 
@@ -102,7 +102,7 @@ public class ApiSqlPoValueParser {
 
             List<Value> values = new ArrayList<>();
 
-            Map<String, List<Column>> columns = getColumns(DbEnums.TableName.RESULT);
+            Map<String, List<Column>> columns = getColumns(DbEnums.TableName.HEADER);
 
             values.add(new Value(columns.get(DbEnums.Column.ACTION_ID).get(0).getValue(), String.valueOf(header.getActionId())));
 

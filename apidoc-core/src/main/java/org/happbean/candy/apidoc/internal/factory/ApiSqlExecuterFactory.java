@@ -53,7 +53,6 @@ public class ApiSqlExecuterFactory {
             }
 
             long i = executer.executeInsert(sqlBuilder.buildInsertSql());
-            executer.connection.close();
             return i;
         };
 

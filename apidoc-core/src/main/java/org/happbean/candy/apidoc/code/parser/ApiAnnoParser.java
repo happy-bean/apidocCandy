@@ -96,8 +96,8 @@ public class ApiAnnoParser {
             return null;
         }
 
-        annotations = Arrays.stream(annotations)
-                .filter(annotation -> (annotation instanceof Param)).toArray(Annotation[]::new);
+        annotations = Arrays.stream(annotations).filter(annotation -> (annotation instanceof Param))
+                .toArray(Annotation[]::new);
 
         if (ArrayUtil.isEmpty(annotations)) {
             return null;
@@ -106,13 +106,13 @@ public class ApiAnnoParser {
         return annotations[0];
     }
 
-    public static final Annotation[] getApiResultAnnotations(Method method) {
+    public static final Annotation[] getApiResultAnnotations(Field field) {
 
-        if (method == null) {
+        if (field == null) {
             return null;
         }
 
-        Annotation[] annotations = AnnotationParser.getResultAnnotations(method);
+        Annotation[] annotations = AnnotationParser.getResultFieldAnnotations(field);
 
         if (ArrayUtil.isEmpty(annotations)) {
             return null;

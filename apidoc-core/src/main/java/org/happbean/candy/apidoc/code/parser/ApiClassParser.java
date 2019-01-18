@@ -3,6 +3,7 @@ package org.happbean.candy.apidoc.code.parser;
 import org.happbean.candy.apidoc.config.xml.elements.Property;
 import org.happbean.candy.apidoc.internal.system.JavaSystem;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.Arrays;
@@ -33,6 +34,13 @@ public class ApiClassParser {
                 .filter(clazz -> ApiChecker.isApiParam(clazz)).toArray(Parameter[]::new);
 
         return parameters;
+    }
+
+    public static final Field[] getFields(Class clazz) {
+
+        Field[] fields = clazz.getDeclaredFields();
+
+        return fields;
     }
 
     public static final Class getApiReponse(Method method) {
