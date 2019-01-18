@@ -15,15 +15,14 @@ import java.util.ResourceBundle;
  * @date 2018-10-24
  * @description
  **/
-public class ApiGenerator {
+public class ApiGenerator implements Generator {
 
-    public static void main(String[] args) throws IOException {
+    @Override
+    public void generate(String configName) {
         File files = new File(ApiGenerator.class.getResource("/").getPath());
         String projectPath = files.getAbsolutePath();
 
-
-        String xmlFileName = "candyconf.xml";
-        GeneratedConf generatedConf = new GeneratedXmlConf(xmlFileName,projectPath);
+        GeneratedConf generatedConf = new GeneratedXmlConf(configName, projectPath);
         generatedConf.generated();
 
         String classPath = JdbcSystem.JDBC_CONNECTION.getClassPath();
@@ -32,6 +31,4 @@ public class ApiGenerator {
 
         JavaFileParser.parse();
     }
-
-
 }
