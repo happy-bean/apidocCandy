@@ -13,22 +13,15 @@ import org.happbean.candy.apidoc.internal.system.JdbcSystem;
  **/
 public class GeneratedXmlConf extends GeneratedConf {
 
-    private String fileName;
+    public GeneratedXmlConf(String xmlConfigPath) {
 
-    private String xmlPath;
-
-    public GeneratedXmlConf(String fileName, String projectPath) {
-
-        super(projectPath);
-
-        this.fileName = fileName;
-        this.xmlPath = projectPath + "/" + this.fileName;
+        super(xmlConfigPath);
     }
 
     @Override
     public void generated() {
 
-        CandyConfiguration configuration = XmlConfFormatter.parse(this.xmlPath);
+        CandyConfiguration configuration = XmlConfFormatter.parse(this.xmlConfigPath);
 
         JdbcSystem.init(configuration);
 

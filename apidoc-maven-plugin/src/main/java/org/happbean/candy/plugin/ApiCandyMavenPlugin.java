@@ -14,19 +14,29 @@ import org.happbean.candy.apidoc.api.Generator;
  * @date 2019-01-18
  * @description
  **/
-@Mojo(name = "apicandy", defaultPhase = LifecyclePhase.PACKAGE)
+@Mojo(name = "generator", defaultPhase = LifecyclePhase.PACKAGE)
 public class ApiCandyMavenPlugin extends AbstractMojo {
 
-    @Parameter(property = "args")
-    private String args;
+    @Parameter(property = "xmlFileName")
+    private String xmlFileName;
+
+    @Parameter(property = "apicandy.configFilePath",
+            defaultValue = "${project.basedir}/src/main/resources", required = true)
+    private String configurationFile;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        System.out.println(args + "-----");
-        if (args == null) {
-            args = "candyconf.xml";
+        if (this.xmlFileName == null) {
+            this.xmlFileName = "candyconf.xml";
         }
-        Generator generator = new ApiGenerator();
-        generator.generate(args);
+        try {
+            String xmlConfigPath = this.configurationFile + "/" + this.xmlFileName;
+            System.out.println("path:"+xmlConfigPath);
+            Generator generator = new ApiGenerator();
+            generator.generate(xmlConfigPath);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 }

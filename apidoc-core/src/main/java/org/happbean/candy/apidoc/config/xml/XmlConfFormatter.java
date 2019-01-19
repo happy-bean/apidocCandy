@@ -21,7 +21,12 @@ public class XmlConfFormatter {
 
             JAXBContext context = JAXBContext.newInstance(load);
             Unmarshaller unmarshaller = context.createUnmarshaller();
-            object = unmarshaller.unmarshal(new File(xmlPath));
+            File file = new File(xmlPath);
+            if(!file.exists()){
+                //TODO
+                System.out.println("文件不存在 ："+xmlPath);
+            }
+            object = unmarshaller.unmarshal(file);
         } catch (JAXBException e) {
             e.printStackTrace();
         }

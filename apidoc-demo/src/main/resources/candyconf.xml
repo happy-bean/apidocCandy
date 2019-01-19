@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<candyConfiguration>
+
+    <javaSource package="org.happybeen.apicandy.demo"/>
+
+    <!-- 引入配置文件 -->
+    <properties resource="candy.properties"/>
+
+    <!--jdbc配置-->
+    <jdbcConnection>
+        <driverClass>${jdbcDriver}</driverClass>
+        <classPath>${classPath}</classPath>
+        <connectionURL>${jdbcUrl}</connectionURL>
+        <userId>${jdbcUser}</userId>
+        <password>${jdbcPassword}</password>
+    </jdbcConnection>
+
+    <tables>
+        <table tableName="apicandy_action" property="action">
+            <column value="id" property="id"/>
+            <column value="name" property="name"/>
+            <column value="path" property="path"/>
+            <column value="method" property="method"/>
+            <column value="desc" property="desc"/>
+        </table>
+        <table tableName="apicandy_param" property="param">
+            <column value="id" property="id"/>
+            <column value="action_id" property="actionId"/>
+            <column value="name" property="name"/>
+            <column value="type" property="type"/>
+            <column value="required" property="required"/>
+            <column value="desc" property="desc"/>
+            <column value="last_id" property="lastId"/>
+        </table>
+        <table tableName="apicandy_header" property="header">
+            <column value="id" property="id"/>
+            <column value="action_id" property="actionId"/>
+            <column value="name" property="name"/>
+            <column value="required" property="required"/>
+            <column value="desc" property="desc"/>
+        </table>
+        <table tableName="apicandy_result" property="result">
+            <column value="id" property="id"/>
+            <column value="action_id" property="actionId"/>
+            <column value="name" property="name"/>
+            <column value="value" property="value"/>
+            <column value="type" property="type"/>
+            <column value="desc" property="desc"/>
+            <column value="last_id" property="lastId"/>
+        </table>
+    </tables>
+
+    <javaTypeResolver>
+        <property javaType="int" apiType="number"/>
+        <property javaType="long" apiType="number"/>
+        <property javaType="double" apiType="number"/>
+    </javaTypeResolver>
+
+</candyConfiguration>
+

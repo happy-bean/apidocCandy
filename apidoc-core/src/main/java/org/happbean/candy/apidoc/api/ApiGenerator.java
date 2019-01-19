@@ -18,17 +18,17 @@ import java.util.ResourceBundle;
 public class ApiGenerator implements Generator {
 
     @Override
-    public void generate(String configName) {
-        File files = new File(ApiGenerator.class.getResource("/").getPath());
-        String projectPath = files.getAbsolutePath();
+    public void generate(String xmlConfigPath) {
 
-        GeneratedConf generatedConf = new GeneratedXmlConf(configName, projectPath);
+        GeneratedConf generatedConf = new GeneratedXmlConf(xmlConfigPath);
         generatedConf.generated();
 
-        String classPath = JdbcSystem.JDBC_CONNECTION.getClassPath();
-
-        System.out.println(classPath);
-
         JavaFileParser.parse();
+    }
+
+    public static void main(String[] args) {
+
+
+        new ApiGenerator().generate("candyconf.xml");
     }
 }

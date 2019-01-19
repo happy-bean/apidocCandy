@@ -7,5 +7,5 @@ package org.happbean.candy.apidoc.api;
  **/
 public interface Generator {
 
-    void generate(String configName);
+    void generate(String xmlConfigPath);
 }

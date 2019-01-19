@@ -10,6 +10,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>apicandy-demo</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.happybeen.apicandy</groupId>
+            <artifactId>apicandy-core</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
     <build>
         <plugins>
             <plugin>
@@ -19,6 +27,11 @@
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.happybeen.apicandy</groupId>
+                <artifactId>apicandy-maven-plugin</artifactId>
+                <version>1.0</version>
             </plugin>
         </plugins>
     </build>

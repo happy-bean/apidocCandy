@@ -7,10 +7,10 @@ package org.happbean.candy.apidoc.api;
  **/
 public abstract class GeneratedConf {
 
-    protected String projectPath;
+    protected String xmlConfigPath;
 
-    public GeneratedConf(String projectPath) {
-        this.projectPath = projectPath;
+    public GeneratedConf(String xmlConfigPath) {
+        this.xmlConfigPath = xmlConfigPath;
     }
 
     abstract  void generated();
