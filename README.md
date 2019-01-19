@@ -5,12 +5,12 @@
 
      暂时只支持 mysql持久化
 
-     公用参数或返回值，请根据不同需求分次处理
+     公用参数或返回值，请根据不同需求分次处理   
 
-     开发ing ...
-bug：重复执行时 参数，返回值不能自动删除
+     开发ing ...   
+bug：重复执行时 参数，返回值不能自动删除   
 
-使用手册：
+使用手册： 
 1.下载源码
   mvn install 安装到本地仓库
   
@@ -29,8 +29,8 @@ bug：重复执行时 参数，返回值不能自动删除
              <version>1.0</version>
         </plugin>
 ```
-3.注解配置参考：
-  apidoc-demo 模块
+3.注解配置参考：   
+  apidoc-demo 模块   
   
 4.配置文件 (resources目录下）
  4.1 candyconf.xml
@@ -111,11 +111,11 @@ jdbcUser=root
 jdbcPassword=123456
 
 ```
-5.配置表sql
+5.配置表sql   
  略
-6. 编译项目
-7.使用apicandy插件生成api文档
-  7.1 idea 插件执行 
-      略
-  7.2 执行apicandy命令
-      mvn apicandy:generator
+6. 编译项目   
+7.使用apicandy插件生成api文档   
+  7.1 idea 插件执行    
+      略   
+  7.2 执行apicandy命令   
+      mvn apicandy:generator   
