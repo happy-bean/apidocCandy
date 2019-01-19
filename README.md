@@ -112,8 +112,8 @@ jdbcPassword=123456
 
 ```
 5.配置表sql   
- 略
-6. 编译项目   
+ 略   
+6. 编译项目      
 7.使用apicandy插件生成api文档   
   7.1 idea 插件执行    
       略   
