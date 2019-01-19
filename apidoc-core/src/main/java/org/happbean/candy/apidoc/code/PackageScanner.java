@@ -3,15 +3,13 @@ package org.happbean.candy.apidoc.code;
 
 import org.happbean.candy.apidoc.code.parser.ApiChecker;
 import org.happbean.candy.apidoc.internal.factory.ObjectFactory;
+import org.happbean.candy.apidoc.internal.load.JavaClassloader;
+import org.happbean.candy.apidoc.internal.system.JavaSystem;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.io.IOException;
-import java.net.URL;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Enumeration;
 import java.util.List;
 
 /**
@@ -26,29 +24,40 @@ public class PackageScanner {
         List<Class<?>> classes = new ArrayList<>();
         // 是否循环迭代
         boolean recursive = true;
+
         // 获取包的名字 并进行替换
         String packageDirName = packageName.replace('.', '/');
-        // 定义一个枚举的集合 并进行循环来处理这个目录下的things
-        Enumeration<URL> dirs;
+
+        String filePath = JavaSystem.JAVA_SOURCE.getTargetFilePath() + "/" + packageDirName;
+
         try {
-            dirs = Thread.currentThread().getContextClassLoader().getResources(packageDirName);
-            // 循环迭代下去
-            while (dirs.hasMoreElements()) {
-                // 获取下一个元素
-                URL url = dirs.nextElement();
-                // 得到协议的名称
-                String protocol = url.getProtocol();
-                // 如果是以文件的形式保存在服务器上
-                if ("file".equals(protocol)) {
-                    // 获取包的物理路径
-                    String filePath = URLDecoder.decode(url.getFile(), "UTF-8");
-                    // 以文件的方式扫描整个包下的文件 并添加到集合中
-                    findApiClassesInPackageByFile(packageName, filePath, recursive, classes);
-                }
-            }
-        } catch (IOException e) {
+            JavaClassloader.loadClass(JavaSystem.JAVA_SOURCE.getTargetFilePath());
+        } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
+        findApiClassesInPackageByFile(packageName, filePath, recursive, classes);
+
+//        // 定义一个枚举的集合 并进行循环来处理这个目录下的things
+//        Enumeration<URL> dirs;
+//        try {
+//            dirs = Thread.currentThread().getContextClassLoader().getResources(packageDirName);
+//            // 循环迭代下去
+//            while (dirs.hasMoreElements()) {
+//                // 获取下一个元素
+//                URL url = dirs.nextElement();
+//                // 得到协议的名称
+//                String protocol = url.getProtocol();
+//                // 如果是以文件的形式保存在服务器上
+//                if ("file".equals(protocol)) {
+//                    // 获取包的物理路径
+//                    String filePath = URLDecoder.decode(url.getFile(), "UTF-8");
+//                    // 以文件的方式扫描整个包下的文件 并添加到集合中
+//                    findApiClassesInPackageByFile(packageName, filePath, recursive, classes);
+//                }
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
         return classes;
     }
@@ -86,5 +95,4 @@ public class PackageScanner {
             }
         });
     }
-
 }

@@ -3,7 +3,7 @@ package org.happbean.candy.apidoc.internal.system;
 import org.happbean.candy.apidoc.config.xml.elements.CandyConfiguration;
 import org.happbean.candy.apidoc.config.xml.elements.JavaSource;
 import org.happbean.candy.apidoc.config.xml.elements.JavaTypeResolver;
-import org.happbean.candy.apidoc.internal.load.JarLoader;
+import org.happbean.candy.apidoc.internal.load.JavaClassloader;
 
 import static org.happbean.candy.apidoc.internal.system.JdbcSystem.JDBC_CONNECTION;
 
@@ -24,7 +24,7 @@ public class JavaSystem {
         initJavaTypeResolver(configuration.getJavaTypeResolver());
 
         try {
-            JarLoader.loadJar(JDBC_CONNECTION.getClassPath());
+            JavaClassloader.loadJar(JDBC_CONNECTION.getClassPath());
         }catch (Exception e){
             //TODO
         }

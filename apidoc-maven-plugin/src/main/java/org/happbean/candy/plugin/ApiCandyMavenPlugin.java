@@ -24,6 +24,10 @@ public class ApiCandyMavenPlugin extends AbstractMojo {
             defaultValue = "${project.basedir}/src/main/resources", required = true)
     private String configurationFile;
 
+    @Parameter(property = "apicandy.targetFilePath",
+            defaultValue = "${project.basedir}/target/classes", required = true)
+    private String targetFilePath;
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         if (this.xmlFileName == null) {
@@ -31,9 +35,8 @@ public class ApiCandyMavenPlugin extends AbstractMojo {
         }
         try {
             String xmlConfigPath = this.configurationFile + "/" + this.xmlFileName;
-            System.out.println("path:"+xmlConfigPath);
             Generator generator = new ApiGenerator();
-            generator.generate(xmlConfigPath);
+            generator.generate(xmlConfigPath,this.targetFilePath);
         }catch (Exception e){
             e.printStackTrace();
         }
