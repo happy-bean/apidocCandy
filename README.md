@@ -29,8 +29,8 @@ bug：重复执行时 参数，返回值不能自动删除
              <version>1.0</version>
         </plugin>
 ```
-3.注解配置参考：   
-  apidoc-demo 模块   
+3.注解配置：   
+  参考 apidoc-demo 模块   
   
 4.配置文件 (resources目录下）
  4.1 candyconf.xml
