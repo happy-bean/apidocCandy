@@ -11,6 +11,7 @@ import org.happbean.candy.apidoc.internal.enums.HttpMethod;
  * @date 2018-09-15
  * @description
  **/
+//类上加@Api才会被自动生成
 @Api(value = "userController")
 public class UserController {
 
