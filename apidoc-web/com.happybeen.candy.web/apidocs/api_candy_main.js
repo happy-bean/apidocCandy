@@ -12,7 +12,7 @@ require(
         "jquery",
         "handlebars",
         "api_candy",
-        "mysql_connection",
+        "api_candy_connection",
         "api_candy_sql",
     ], function ($, _, api_candy, mysql_connection, api_candy_sql) {
         $(function () {
