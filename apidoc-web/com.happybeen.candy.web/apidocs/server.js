@@ -39,6 +39,10 @@ function postRouteAndResult(path_name, post, request, response) {
         actionById(response, post['id']);
     } else if (path_name == '/params_by_action_id') {
         paramsByActionId(response, post['id'])
+    } else if (path_name == '/headers_by_action_id') {
+        headersByActionId(response, post['id'])
+    } else if (path_name == '/results_by_id') {
+        resultsByActionId(response, post['id'])
     } else {
         response.writeHead(404, {'Content-Type': 'text/html'});
         response.end();
