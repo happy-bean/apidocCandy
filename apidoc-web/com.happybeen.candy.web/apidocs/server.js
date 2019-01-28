@@ -50,8 +50,10 @@ function postRouteAndResult(path_name, post, request, response) {
 }
 
 function doGet(request, response) {
-    var path_name = '/index.html'
-
+    var path_name = url.parse(request.url).pathname.trim();
+    if (path_name == '/') {
+        path_name = '/index.html';
+    }
     fs.readFile(path_name.substr(1), function (err, data) {
         if (err) {
             console.log(err);
