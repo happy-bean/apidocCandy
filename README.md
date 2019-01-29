@@ -120,7 +120,7 @@ jdbcPassword=123456
   7.2 执行apicandy命令   
       mvn apicandy:generator     
 
-8.web
+8.web   
   8.1 web端使用node搭建   
   8.2 配置 server.js   
 ```
