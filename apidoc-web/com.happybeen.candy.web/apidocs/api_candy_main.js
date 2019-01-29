@@ -20,11 +20,6 @@ require(
 
         var template_side_nav = handlebars.compile($('#template-sidenav').html());
         var template_project = handlebars.compile($('#template-project').html());
-        var template_header = handlebars.compile($('#template-header').html());
-        var template_footer = handlebars.compile($('#template-footer').html());
-        var template_generator = handlebars.compile($('#template-generator').html());
-        //var template_sections = handlebars.compile($('#template-sections').html());
-
 
         loadHtml();
 
@@ -33,9 +28,11 @@ require(
             ajaxPost("/actions", {}, template_side_nav, "#sidenav");
 
             $('#project').append(template_project(api_candy));
-            $('#header').append(template_header(api_candy));
-            $('#footer').append(template_footer(api_candy));
-            $('#generator').append(template_generator(api_candy));
+
+            $("title").html(api_candy.title);
+
+            $('#loader').hide();
+
         }
 
         function ajaxPost(url, data, template, id) {
