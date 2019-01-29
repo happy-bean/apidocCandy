@@ -135,5 +135,5 @@ jdbcPassword=123456
        }
 ```
   8.3 切换到 apidoc-web/com.happybeen.candy.web/apidocs 目录   
-      执行 ndoe server.js
+      执行 node server.js
 
