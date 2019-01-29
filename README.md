@@ -119,3 +119,9 @@ jdbcPassword=123456
       略   
   7.2 执行apicandy命令   
       mvn apicandy:generator   
+
+8.web
+  8.1 web端使用node搭建
+  8.2 切换到 apidoc-web/com.happybeen.candy.web/apidocs 目录
+      执行 ndoe server.js
+
