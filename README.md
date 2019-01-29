@@ -118,22 +118,22 @@ jdbcPassword=123456
   7.1 idea 插件执行    
       略   
   7.2 执行apicandy命令   
-      mvn apicandy:generator   
+      mvn apicandy:generator     
 
 8.web
-  8.1 web端使用node搭建
-  8.2 配置 server.js
-      ```
+  8.1 web端使用node搭建   
+  8.2 配置 server.js   
+```
       var server_port = '8090';
 
-var mysql_config = {
-    host: 'localhost',
-    port: '3306',
-    user: 'root',
-    password: '123456',
-    database: 'test'
-}
-      ```
-  8.3 切换到 apidoc-web/com.happybeen.candy.web/apidocs 目录
+      var mysql_config = {
+          host: 'localhost',
+          port: '3306',
+          user: 'root',
+          password: '123456',
+         database: 'test'
+       }
+```
+  8.3 切换到 apidoc-web/com.happybeen.candy.web/apidocs 目录   
       执行 ndoe server.js
 
