@@ -23,14 +23,14 @@ require(
         var template_header = handlebars.compile($('#template-header').html());
         var template_footer = handlebars.compile($('#template-footer').html());
         var template_generator = handlebars.compile($('#template-generator').html());
-        var template_sections = handlebars.compile($('#template-sections').html());
+        //var template_sections = handlebars.compile($('#template-sections').html());
 
 
         loadHtml();
 
         //load html
         function loadHtml() {
-            ajax_post("/actions", {}, template_side_nav, "#sidenav");
+            ajaxPost("/actions", {}, template_side_nav, "#sidenav");
 
             $('#project').append(template_project(api_candy));
             $('#header').append(template_header(api_candy));
@@ -38,7 +38,7 @@ require(
             $('#generator').append(template_generator(api_candy));
         }
 
-        function ajax_post(url, data, template, id) {
+        function ajaxPost(url, data, template, id) {
             $.ajax({
                 url: url,
                 data: data,
@@ -46,9 +46,6 @@ require(
                 type: "POST",
                 success: function (result) {
                     console.log("----info----result：" + JSON.stringify(result));
-                    // var template_date = {
-                    //     "data": result
-                    // }
                     $(id).append(template(result));
                 },
                 error: function (result) {
@@ -56,5 +53,4 @@ require(
                 }
             });
         }
-    })
-;
+    });
