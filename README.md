@@ -3,9 +3,9 @@
 
 支持：参数/返回值中 有循环引用的暂不支持
 
-     暂时只支持 mysql持久化
+     暂时只支持 mysql持久化 后期版本会追加其它数据库
 
-     公用参数或返回值，请根据不同需求分次处理   
+     公用参数或返回值，请根据不同需求分次处理  后继版本会修复 
 
      开发ing ...   
 bug：重复执行时 参数，返回值不能自动删除   
@@ -122,6 +122,18 @@ jdbcPassword=123456
 
 8.web
   8.1 web端使用node搭建
-  8.2 切换到 apidoc-web/com.happybeen.candy.web/apidocs 目录
+  8.2 配置 server.js
+      ```
+      var server_port = '8090';
+
+var mysql_config = {
+    host: 'localhost',
+    port: '3306',
+    user: 'root',
+    password: '123456',
+    database: 'test'
+}
+      ```
+  8.3 切换到 apidoc-web/com.happybeen.candy.web/apidocs 目录
       执行 ndoe server.js
 
