@@ -28,16 +28,19 @@ public class ApiCandyMavenPlugin extends AbstractMojo {
             defaultValue = "${project.basedir}/target/classes", required = true)
     private String targetFilePath;
 
+    private Banner banner = new ApiBanner();
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
+        banner.printBanner();
         if (this.xmlFileName == null) {
             this.xmlFileName = "candyconf.xml";
         }
         try {
             String xmlConfigPath = this.configurationFile + "/" + this.xmlFileName;
             Generator generator = new ApiGenerator();
-            generator.generate(xmlConfigPath,this.targetFilePath);
-        }catch (Exception e){
+            generator.generate(xmlConfigPath, this.targetFilePath);
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

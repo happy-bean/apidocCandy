@@ -11,10 +11,14 @@ public class ApiBanner implements Banner {
 
     @Override
     public void printBanner() {
-        log.info("    _     ___   ___    ___     _     _  _   ___   __   __");
-        log.info("\"   /_\\\\   | _ \\\\ |_ _|  / __|   /_\\\\   | \\\\| | |   \\\\  \\\\ \\\\ / /\"");
-        log.info("\"  / _ \\\\  |  _/  | |  | (__   / _ \\\\  | .` | | |) |  \\\\ V /\"");
-        log.info("\" /_/ \\\\_\\\\ |_|   |___|  \\\\___| /_/ \\\\_\\\\ |_|\\\\_| |___/    |_|  \"");
-        log.info("                                                  v:1.0.0");
+        System.out.println("    _     ___   ___    ___     _     _  _   ___   __   __");
+        System.out.println("   /_\\   | _ \\ |_ _|  / __|   /_\\   | \\| | |   \\  \\ \\ / /");
+        System.out.println("  / _ \\  |  _/  | |  | (__   / _ \\  | .` | | |) |  \\ V /");
+        System.out.println(" /_/ \\_\\ |_|   |___|  \\___| /_/ \\_\\ |_|\\_| |___/    |_|");
+        System.out.println("                                                  v:1.0.0");
+    }
+
+    public static void main(String[] args) {
+     new ApiBanner().printBanner();
     }
 }
