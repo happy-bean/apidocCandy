@@ -16,9 +16,6 @@ public class ApiBanner implements Banner {
         System.out.println("  / _ \\  |  _/  | |  | (__   / _ \\  | .` | | |) |  \\ V /");
         System.out.println(" /_/ \\_\\ |_|   |___|  \\___| /_/ \\_\\ |_|\\_| |___/    |_|");
         System.out.println("                                                  v:1.0.0");
-    }
-
-    public static void main(String[] args) {
-     new ApiBanner().printBanner();
+        System.out.println("");
     }
 }
